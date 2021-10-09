@@ -141,24 +141,20 @@ ALTER TABLE `users`
 --
 ALTER TABLE `userTables`
   ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `id_UNIQUE` (`id`),
-  ADD KEY `user_table_idx` (`userId`),
-  ADD KEY `table_userTable_idx` (`tableId`);
+  ADD UNIQUE KEY `id_UNIQUE` (`id`);
 
 --
 -- Indeksy dla tabeli `workColumns`
 --
 ALTER TABLE `workColumns`
   ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `id_UNIQUE` (`id`),
-  ADD KEY `column_table_idx` (`tableId`);
+  ADD UNIQUE KEY `id_UNIQUE` (`id`);
 
 --
 -- Indeksy dla tabeli `workItems`
 --
 ALTER TABLE `workItems`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `item_column_idx` (`columnId`);
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indeksy dla tabeli `workTables`
@@ -204,27 +200,3 @@ ALTER TABLE `workTables`
 --
 -- Ograniczenia dla zrzutów tabel
 --
-
---
--- Ograniczenia dla tabeli `userTables`
---
-ALTER TABLE `userTables`
-  ADD CONSTRAINT `table_userTable` FOREIGN KEY (`tableId`) REFERENCES `workTables` (`id`),
-  ADD CONSTRAINT `user_userTable` FOREIGN KEY (`userId`) REFERENCES `users` (`id`);
-
---
--- Ograniczenia dla tabeli `workColumns`
---
-ALTER TABLE `workColumns`
-  ADD CONSTRAINT `column_table` FOREIGN KEY (`tableId`) REFERENCES `workTables` (`id`);
-
---
--- Ograniczenia dla tabeli `workItems`
---
-ALTER TABLE `workItems`
-  ADD CONSTRAINT `item_column` FOREIGN KEY (`columnId`) REFERENCES `workColumns` (`id`);
-COMMIT;
-
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

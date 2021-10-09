@@ -669,7 +669,7 @@ class Boards extends BaseController
 
 	private function hasUserAccessToColumn(int $userId, int $columnId, bool $checkRole, int $role = 0)
 	{
-		$column = $this->db->table("workColumns")->where("id", $columnId)->get()->getRow();
+		$column = $this->db->table("boardColumns")->where("id", $columnId)->get()->getRow();
 
 		if ($column == null) {
 			return false;
@@ -680,7 +680,7 @@ class Boards extends BaseController
 
 	private function hasUserAccessToTask(int $userId, int $taskId, bool $checkRole, int $role = 0)
 	{
-		$task = $this->db->table("workItems")->where("id", $taskId)->get()->getRow();
+		$task = $this->db->table("boardItems")->where("id", $taskId)->get()->getRow();
 
 		if ($task == null) {
 			return false;
