@@ -360,7 +360,7 @@ if (!function_exists('formButtonLink')) {
         $linkSource = $isButton ? 'onclick="' . substr($link, 1) . '"' : 'href="' . $link . '"';
 
         if ($isButton)
-            return '<button type="button" class="' . $className . '" ' . $linkSource . '>' . $title . '</button>';
+            return '<button type="button" class="' . $className . '" ' . $linkSource . '><span>' . $title . '</span></button>';
         else
             return '<a class="' . $className . '" ' . $linkSource . '>' . $title . '</a>';
     }

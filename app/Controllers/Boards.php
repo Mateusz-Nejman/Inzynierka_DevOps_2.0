@@ -15,9 +15,9 @@ class Boards extends BaseController
 		$this->loggedAccess();
 	}
 
-	public function index()
+	public function index($link = "")
 	{
-		return showPage("board_index", [], [
+		return showPage("board_index", ["logged" => true], [
 			createModal("Nowe zadanie", "newTask", "board_new_task"),
 			createModal("Edytuj zadanie", "editTask", "board_edit_task"),
 			createModal("Użytkownicy", "boardUsers", "board_users")
@@ -39,7 +39,7 @@ class Boards extends BaseController
 		}
 		$columns = [];
 
-		$board = $this->db->table("boards")->where("id", $boardId)->get()->getRow();
+		$board = $this->db->table("boards")->where("archive", 0)->where("id", $boardId)->get()->getRow();
 
 		if ($board == null) {
 			return $this->response->setJSON(["state" => 0, "message" => "Błąd serwera. Kod #BS002"]);
@@ -417,7 +417,22 @@ class Boards extends BaseController
 			$boardIds[] = $userBoard->boardId;
 		}
 
-		$boards = $this->db->table("boards")->whereIn("id", $boardIds)->get()->getResult();
+		$boards = $this->db->table("boards")->where("archive", 0)->whereIn("id", $boardIds)->get()->getResult();
+
+		foreach($boards as $board)
+		{
+			$columns = $this->db->table("boardColumns")->where("boardId", $board->id)->where("archive", 0)->get()->getResult();
+			$columnIds = [];
+
+			foreach($columns as $column)
+			{
+				$columnIds[] = $column->id;
+			}
+
+			$boardItems = $this->db->table("boardItems")->whereIn("columnId", $columnIds)->where("archive", 0)->get()->getResult();
+
+			$board->taskCount = count($boardItems);
+		}
 
 		return $this->response->setJSON(["data" => $boards]);
 	}
@@ -628,6 +643,26 @@ class Boards extends BaseController
 		$data->content = $content;
 
 		return $this->response->setJSON(["state" => 0, "message" => "Dodano komentarz", "data" => $data]);
+	}
+
+	public function archiveBoard()
+	{
+		if (!$this->checkValidRequest($this->request)) {
+			return $this->getInvalidResponse($this->response);
+		}
+
+		$userData = getLoggedUserData();
+		$id = intval($this->request->getVar("id"));
+
+		if (!$this->hasUserAccessToBoard($userData->id, $id, true)) {
+			return $this->response->setJSON(["state" => 0, "message" => "Brak dostępu"]);
+		}
+
+		$this->db->table("boards")->where("id", $id)->update([
+			"archive" => 1
+		]);
+
+		return $this->response->setJSON(["state" => 0, "message" => "Pomyślnie zarchiwizowano"]);
 	}
 
 	private function changeColumnsOrderIds(array $ids)

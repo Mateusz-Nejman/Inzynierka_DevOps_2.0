@@ -34,6 +34,8 @@ const boardsMoveTaskTo = (columnId, taskId, ids) => {
 
 const boardsFillBoard = (boardId, onCompleted) => {
     ajaxPost(baseUrl + '/boards/getData', { boardId: boardId }, result => {
+        $("#boardName").show();
+        $("#boardButtons").show();
         $("#boardName").val(result.name);
         $("#board").empty();
         canAddUsers = result.role == 1;
@@ -49,6 +51,7 @@ const boardsFillBoard = (boardId, onCompleted) => {
         $("#boardsNewTaskButton").prop("disabled", !canInteract);
         $("#boardsEditTaskButton").prop("disabled", !canInteract);
         $("#boardsEditTaskArchive").prop("disabled", !canInteract);
+        $("#boardsArchiveButton").prop("disabled", !canInteract);
         $("#boardName").prop("disabled", !canAddUsers);
         $("#boardsUsersButton").prop("disabled", !canAddUsers);
 
@@ -147,7 +150,8 @@ const boardsCreateTaskSubmit = () => {
         const task = boardsCreateTaskItem(result.data);
         $("#container" + columnId).append(task);
         $("#container" + columnId).sortable('refresh');
-        closeModal("newTask")
+        boardsRefreshBoardsGrid();
+        closeModal("newTask");
     });
 }
 
@@ -186,15 +190,27 @@ const boardsOpenEditTask = id => {
 const boardsEditTaskArchiveSubmit = () => {
     const id = $("#boardsEditTaskId").val();
 
+    if(!confirm("Czy na pewno chcesz usunąć zadanie?"))
+    {
+        return;
+    }
+
     ajaxPost(baseUrl + "/boards/archiveTask", { id: id }, result => {
         $("#task" + id).remove();
+        boardsRefreshBoardsGrid();
         closeModal("editTask");
     });
 }
 
 const boardsArchiveColumn = id => {
+    if(!confirm("Czy na pewno chcesz usunąć kolumnę?"))
+    {
+        return;
+    }
+    
     ajaxPost(baseUrl + "/boards/archiveColumn", { id: id }, result => {
         $("#column" + id).remove();
+        boardsRefreshBoardsGrid();
     });
 }
 
@@ -277,8 +293,10 @@ const boardsChangeBoardName = () => {
 const boardsRefreshBoardsGrid = () => {
     ajaxPost(baseUrl + "/boards/getUserBoards", { empty: true }, result => {
         $("#boardGrid").empty();
+        $("#sidebarList").empty();
         result.data.forEach(item => {
-            $("#boardGrid").append(formButtonLink(item.name, "*boardsGotoBoard(" + item.id + ")", "boardItem jsTilt"));
+            $("#boardGrid").append(formButtonLink('<h2 class="boardItemTitle">' + item.name + '</h2><span class="boardItemTasks"><i class="fas fa-tasks"></i> ' + item.taskCount + '</span>', "*boardsGotoBoard(" + item.id + ")", "boardItem jsTilt"));
+            $("#sidebarList").append('<li class="navItem">' + formButtonLink(item.name, "*boardsGotoBoard(" + item.id + ")", "navLink\" id=\"navItem" + item.id) + '</li>');
         });
 
         $("#boardGrid").append(boardsCreateNewBoardItem());
@@ -288,12 +306,12 @@ const boardsRefreshBoardsGrid = () => {
 }
 
 const boardsCreateNewBoardItem = () => {
-    return '<div class="boardItemNew jsTilt">' +
+    return '<div class="boardItemNew">' +
         formButtonLink('<i class="fas fa-plus"></i> Nowa tablica', "*boardsShowNewBoard(true)", 'transparentButtonLink newBoardInactive" id="boardsNewBoardInactive') +
         '<div class="newBoardActive" id="boardsNewBoardActive">' +
         formTextBox("Nazwa tablicy", "boardName", "boardNewBoardName") +
-        '<div class="row">' +
-        formButtonLink("Nowa tablica", "*boardsNewBoardSubmit()", "baseButton") +
+        '<div class="row" style="justify-content: center">' +
+        formButtonLink('<i class="fas fa-check"></i>', "*boardsNewBoardSubmit()", "transparentButtonLink greenColor") +
         formButtonLink('<i class="fas fa-times"></i>', '*boardsShowNewBoard(false)', 'transparentButtonLink') +
         '</div></div></div>';
 }
@@ -302,12 +320,16 @@ const boardsGotoBoard = id => {
     $("#loading").show();
     $("#boardGridContainer").hide();
     $("#boardContainer").show();
+    $(".navLink").removeClass("active");
+    $("#navItem"+id).addClass("active");
     boardsInitialize(id);
 }
 
 const boardsGotoHome = () => {
     $("#boardGridContainer").show();
     $("#boardContainer").hide();
+    $("#boardName").hide();
+    $("#boardButtons").hide();
 }
 
 const boardsShowNewBoard = show => {
@@ -375,6 +397,11 @@ const boardsAddUserSubmit = () => {
 
 const boardsRemoveUserSubmit = id => {
     const userId = id;
+
+    if(!confirm("Na pewno chcesz usunąć użytkownika?"))
+    {
+        return;
+    }
 
     ajaxPost(baseUrl + "/boards/removeUserFromBoard", { id: currentBoard, userId: userId }, result => {
         if(result.selfRemove)
@@ -490,4 +517,22 @@ const boardsEditTaskAddCommentSubmit = () => {
         $("#taskCommentList").append(boardsCreateCommentItem(result.data));
         boardsNewCommentEditor.deleteText(0, boardsNewCommentEditor.getLength());
     })
+}
+
+const boardsArchiveBoard = () => {
+    if(!confirm("Na pewno chcesz usunąć tablicę?"))
+    {
+        return;
+    }
+
+    ajaxPost(baseUrl + "/boards/archiveBoard", { id: currentBoard }, result => {
+        boardsRefreshBoardsGrid();
+        boardsGotoHome();
+    });
+}
+
+const logout = () => {
+    ajaxPost(baseUrl + "/login/logout",{empty: true}, result => {
+        window.location.reload();
+    });
 }

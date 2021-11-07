@@ -32,7 +32,7 @@
         <?php if (strpos($scriptPath, "http") === 0) : ?>
             <script src="<?= $scriptPath; ?>"></script>
         <?php else : ?>
-            <script src="/assets/js/<?= $scriptPath; ?>?v=<?= $cacheClear; ?>"></script>
+            <script src="/assets/js/<?= $scriptPath; ?>?v=<?= $cacheClear; ?>1"></script>
         <?php endif; ?>
     <?php endforeach; ?>
 <script>

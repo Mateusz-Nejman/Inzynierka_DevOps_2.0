@@ -1,0 +1,1180 @@
+/*$colorPrimary: #202225;
+$colorSecondary: #2f3136;
+$colorThirdary: white;
+$colorPrimaryText: white;
+$colorSecondaryText: #2f3136;
+$colorDisabledText: #dee2e6;
+$basicBorder: #dee2e6;*/
+
+$colorPrimary: #9a0000;
+$colorSecondary: #f0f0f0;
+$colorThirdary: white;
+$colorPrimaryText: white;
+$colorSecondaryText: #b0bec5;
+$colorThirdaryText: black;
+$colorDisabledText: #dee2e6;
+$basicBorder: #dee2e6;
+$notificationBackground: #2d2d2a;
+$notificationColor: white;
+
+$contrastColor: #2d2d2a;
+$baseColor: #4c4c47;
+$baseTextColor: white;
+
+@keyframes spin {
+    from {
+        transform: rotate(0);
+    }
+    to {
+        transform: rotate(359deg);
+    }
+}
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+h2 {
+    font-size: 1.3rem;
+}
+
+h5 {
+    color: $colorThirdaryText;
+    font-size: 1.5rem;
+    margin: auto 15px;
+}
+
+h6 {
+    color: $colorThirdaryText;
+    font-size: 1.25rem;
+    margin: auto 15px;
+}
+
+body {
+    font-family: "Roboto", sans-serif;
+    width: 100vw;
+}
+
+.mlAuto {
+    margin-left: auto;
+}
+
+.mrAuto {
+    margin-right: auto;
+}
+
+.mtAuto {
+    margin-top: auto;
+}
+
+.margin0 {
+    margin: 0;
+}
+
+.width100 {
+    width: 100%;
+}
+
+.height100 {
+    height: 100%;
+}
+
+.row,
+.rowStatic {
+    display: flex;
+    flex-direction: row;
+}
+
+.col {
+    padding: 20px;
+    width: 50%;
+}
+
+.col2 {
+    width: 100%;
+}
+
+.col75 {
+    width: 75%;
+}
+
+.col25 {
+    width: 25%;
+}
+
+.col20 {
+    width: 20%;
+}
+
+.col40 {
+    width: 40%;
+}
+
+.col90 {
+    width: 90%;
+}
+
+.col10 {
+    width: 10%;
+}
+
+.pad20 {
+    padding: 20px;
+}
+
+.fullScreenInfo {
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    background-color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 3000;
+}
+
+.fullScreenInfoText {
+    font-size: 50px;
+    color: #1f1f1f;
+}
+
+.notificationContainer {
+    position: fixed;
+    top: auto;
+    bottom: 0;
+    right: 5px;
+    width: 282px;
+    display: flex;
+    flex-direction: column-reverse;
+    z-index: 2003;
+}
+
+.notification {
+    height: 48px;
+    min-width: 170px;
+    margin: 2px;
+    background-color: #f1f1f4;
+    display: flex;
+    flex-direction: row;
+    padding: 10px;
+    align-items: center;
+}
+
+.notificationContent {
+    display: flex;
+    flex-direction: column;
+    color: $notificationColor;
+    font-weight: 600;
+    font-size: 20px;
+    height: auto;
+}
+
+.notificationTitle {
+    color: black;
+    font-size: 16px;
+    margin: 0;
+    margin-bottom: 10px;
+}
+
+.notificationIcon {
+    margin: 0;
+    width: 50px;
+    height: 50px;
+    padding: 10px;
+    font-size: 28px;
+    color: black;
+}
+
+.notificationText {
+    color: black;
+    font-size: 12px;
+}
+
+.baseLink {
+    color: $colorThirdaryText;
+    text-decoration: none;
+    font-size: 16px;
+}
+
+.baseLink:hover {
+    cursor: pointer;
+    color: $baseColor;
+}
+
+.transparent {
+    background-color: transparent;
+    border-color: transparent;
+}
+
+.topbarButton {
+    background-color: transparent;
+    color: $contrastColor;
+    border: 1px solid transparent;
+    width: 48px;
+    height: 48px;
+    font-size: 1rem;
+    margin: 8px;
+}
+
+.topbarButton:hover {
+    background-color: #ffffff20;
+    border-radius: 8px;
+}
+
+.topbarButtonSmaller {
+    background-color: transparent;
+    color: $contrastColor;
+    border: 1px solid transparent;
+    width: 28px;
+    height: 48px;
+    font-size: 1.2rem;
+    margin: 8px;
+}
+
+.searchBox {
+    height: 40px;
+    margin: 12px;
+    min-width: 250px;
+    width: 35%;
+    border-radius: 8px;
+    border: 1px solid transparent;
+    padding-left: 10px;
+    padding-right: 10px;
+    font-size: 20px;
+}
+
+.baseButton {
+    background: linear-gradient(#039BE5, #1E88E5);
+    color: white;
+    border: 1px solid transparent;
+    font-size: 0.75rem;
+    margin: 8px;
+    padding: 10px 16px;
+    text-decoration: none;
+    font-weight: 400;
+    font-family: "Roboto", sans-serif;
+    line-height: 1.2;
+    border-radius: 6px;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.baseButton:hover {
+    background-color: transparent;
+    color: $baseColor;
+    border: 1px solid $baseColor;
+    transition: all 0.3s;
+    cursor: pointer;
+}
+
+.baseButton.link {
+    background-color: transparent;
+    color: $baseColor;
+}
+
+.baseButton.link:hover,
+.baseButton.link.alert:hover {
+    color: black;
+    border: 1px solid transparent;
+}
+
+.baseButton.link.alert {
+    color: #d50000;
+}
+
+.baseButtonM0 {
+    background-color: $baseColor;
+    color: $baseTextColor;
+    border: 1px solid transparent;
+    font-size: 0.75rem;
+    margin: 0 8px 8px 8px;
+    padding: 6px;
+    text-decoration: none;
+    font-weight: 400;
+    font-family: "Roboto", sans-serif;
+    line-height: 1.2;
+    border-radius: 2px;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 40px;
+}
+
+.baseButtonM0:hover {
+    background-color: transparent;
+    color: $baseColor;
+    border: 1px solid $baseColor;
+    transition: all 0.3s;
+    cursor: pointer;
+}
+
+.contentTitle {
+    color: $colorThirdaryText;
+    font-size: 1.5rem;
+    margin: auto 15px;
+}
+
+.baseControl {
+    margin: 20px 0;
+    padding: 10px;
+    background-color: $colorThirdary;
+    border-radius: 8px;
+}
+
+.editorContainer {
+    height: 600px;
+    margin: 8px;
+}
+
+// DATATABLES TEMPLATE
+table.table-bordered.dataTable th,
+table.table-bordered.dataTable td {
+    border-color: $contrastColor;
+}
+
+div.responsiveTable {
+    background-color: $colorThirdary;
+}
+
+.paginate_button {
+    border-color: $baseColor;
+}
+
+.paginate_button.disabled {
+    border-color: $basicBorder;
+}
+
+.paginate_button.current {
+    background-color: $baseColor;
+    color: $baseTextColor;
+}
+
+.paginate_button:hover {
+    background-color: $baseColor;
+    color: $baseTextColor;
+    cursor: pointer;
+}
+
+.dataTables_search {
+    border-color: $basicBorder;
+}
+
+.dataTables_select {
+    color: $contrastColor;
+    border-color: $basicBorder;
+}
+
+//END OF DATATABLES TEMPLATE
+//MODAL PROTOTYPE
+.modal {
+    background-color: $colorThirdary;
+    color: $colorThirdaryText;
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    z-index: 2001;
+}
+
+.modalBackground {
+    color: $colorThirdaryText;
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    z-index: 2001;
+}
+
+.modalBackground.opened {
+    background: rgba(180, 180, 180, 0.3);
+    backdrop-filter: blur(2px);
+    right: 0;
+    bottom: 0;
+    left: 0;
+    top: 0;
+    padding: auto;
+}
+
+.modalBottomLeft {
+    bottom: 100%;
+    left: 100%;
+    transition: bottom left 0.5s linear;
+}
+
+.modalBottomRight {
+    bottom: 100%;
+    right: 100%;
+    transition: bottom right 0.5s linear;
+}
+
+.modalTopLeft {
+    top: 100%;
+    left: 100%;
+    transition: top left 0.5s linear;
+}
+
+.modalTopRight {
+    top: 100%;
+    right: 100%;
+    transition: top right 0.5s linear;
+}
+
+.modal.opened {
+    right: 0;
+    bottom: 0;
+    left: 0;
+    top: 0;
+}
+
+.modalContent {
+    width: 100%;
+    height: 100%;
+    display: none;
+    overflow-y: auto;
+}
+
+.modalSmallerContent {
+    width: 50%;
+    height: 80%;
+    display: none;
+    overflow-y: auto;
+    margin: 10% 25%;
+    background-color: $colorThirdary;
+}
+
+.modalWindowHeader {
+    display: flex;
+    flex-direction: row;
+    height: 64px;
+    margin: 0 0 0 20px;
+    border-bottom: 1px solid $basicBorder;
+}
+
+.modalWindowButton {
+    background-color: transparent;
+    color: $colorThirdaryText;
+    border: 1px solid transparent;
+    width: 48px;
+    height: 48px;
+    font-size: 1rem;
+    margin: 8;
+}
+
+.modalWindowButton:hover {
+    background-color: #00000020;
+    border-radius: 8px;
+}
+
+.modalWindowTitle {
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
+.modalWindowContent {
+    padding: 20px;
+}
+
+.modalHelperInfo {
+    padding: 20px;
+}
+
+.modalHeaderButtons {
+    display: flex;
+    flex-direction: row;
+}
+
+//END OF MODAL PROTOTYPE
+//Controls
+.formLoginBorder {
+    padding: 20px;
+    margin: 20px auto;
+    width: 400px;
+    border: 1px solid black;
+    border-radius: 8px;
+}
+
+.formGroup {
+    display: flex;
+    flex-direction: column;
+    padding: 20px 0;
+}
+
+.formGroupTitle {
+    font-weight: 400;
+    margin: 10px;
+}
+
+.formTextBoxTitled {
+    padding: 0;
+}
+
+.formTextBoxTitled span {
+    color: $colorThirdaryText;
+    font-size: 12px;
+    padding: 15px 0 5px 0;
+    display: block;
+}
+
+.formTextBox {
+    margin: 8px;
+    width: calc(100% - 16px);
+    padding: 8px;
+    height: 40px;
+    border: 1px solid $basicBorder;
+    color: $colorThirdaryText;
+    font-size: 1rem;
+}
+
+.formCheckbox {
+    display: none;
+}
+
+.formCheckboxFrame {
+    width: 22px;
+    height: 22px;
+}
+
+input[type="checkbox"],
+input[type="radio"] {
+    display: none;
+}
+
+input[type="checkbox"] + label,
+input[type="radio"] + label {
+    display: block;
+    position: relative;
+    padding-left: 35px;
+    margin-bottom: 20px;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+}
+
+input[type="checkbox"] + label:last-child,
+input[type="radio"] + label:last-child {
+    margin-bottom: 0;
+}
+
+input[type="checkbox"] + label:before,
+input[type="radio"] + label:before {
+    content: "";
+    display: block;
+    width: 20px;
+    height: 20px;
+    border: 1px solid #4c4c47;
+    position: absolute;
+    left: 0;
+    top: 0;
+    opacity: 0.6;
+    -webkit-transition: all 0.12s, border-color 0.08s;
+    transition: all 0.12s, border-color 0.08s;
+}
+
+input[type="checkbox"]:disabled + label:before {
+    filter: blur(4px);
+}
+
+input[type="checkbox"]:checked + label:before,
+input[type="radio"]:checked + label:before {
+    width: 10px;
+    top: -5px;
+    left: 5px;
+    border-radius: 0;
+    opacity: 1;
+    border-top-color: transparent;
+    border-left-color: transparent;
+    -webkit-transform: rotate(45deg);
+    transform: rotate(45deg);
+}
+
+.formBoxInvalid {
+    border: 1px solid #d50000;
+}
+
+.formTextBox ::placeholder {
+    color: $basicBorder;
+}
+
+.formTextBox :disabled {
+    border: 1px solid $colorDisabledText;
+    color: $colorDisabledText;
+}
+
+.formListBox {
+    -webkit-appearance: none;
+    width: calc(100% - 16px);
+    padding: 8px;
+    height: 40px;
+    border: 1px solid $basicBorder;
+    color: $colorThirdaryText;
+    font-size: 1rem;
+    border-radius: 2px;
+    margin: 8px;
+}
+
+.formTreeViewUl {
+    padding-inline-start: 20px;
+    list-style-type: none;
+}
+
+.formTreeViewLi {
+    padding: 5px;
+}
+
+.baseButtonLink {
+    background-color: transparent;
+    color: $colorThirdaryText;
+    border: 1px solid transparent;
+    font-size: 1rem;
+    padding: 10px 20px;
+    text-decoration: none;
+    font-weight: 400;
+    font-family: "Roboto", sans-serif;
+    line-height: 1.5;
+    display: block;
+    text-align: left;
+}
+
+.baseButtonLinkSmaller {
+    background-color: transparent;
+    color: $colorThirdaryText;
+    border: 1px solid transparent;
+    font-size: 1rem;
+    padding: 5px 20px;
+    text-decoration: none;
+    font-weight: 400;
+    font-family: "Roboto", sans-serif;
+    line-height: 1.5;
+    display: block;
+    text-align: left;
+}
+
+.baseButtonLink:hover,
+.baseButtonLinkSmaller:hover {
+    background-color: #00000020;
+}
+
+.dropdownButton {
+    cursor: pointer;
+    background-color: transparent;
+    color: $contrastColor;
+    border: 1px solid transparent;
+    width: 28px;
+    height: 48px;
+    font-size: 1.25rem;
+    margin: 8px;
+}
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdownContent {
+    display: none;
+    position: absolute;
+    right: 24px;
+    top: 40px;
+    background-color: $colorThirdary;
+    min-width: 250px;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    z-index: 10;
+}
+
+.dropdownContentMiddle {
+    display: none;
+    position: absolute;
+    right: 24px;
+    top: -140px;
+    background-color: $colorThirdary;
+    min-width: 250px;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    z-index: 10;
+}
+
+.dropdownContent.active,
+.dropdownContentMiddle.active {
+    display: block;
+}
+
+.colorBlock {
+    width: 32px;
+    height: 32px;
+}
+
+//End of controls
+//Datapicker
+.ui-datepicker {
+    background-color: $colorThirdary;
+    color: $colorThirdaryText;
+    border: 1px solid $basicBorder;
+    padding: 10px;
+    width: 400px;
+    display: none;
+}
+
+.ui-datepicker-header {
+    height: 48px;
+    width: 100%;
+    position: relative;
+}
+
+.ui-datepicker-prev {
+    position: absolute;
+    left: 2px;
+    font-weight: 900;
+    font-family: "Font Awesome 5 Free";
+}
+
+.ui-datepicker-next {
+    position: absolute;
+    right: 2px;
+    font-weight: 900;
+    font-family: "Font Awesome 5 Free";
+}
+
+.ui-datepicker-title {
+    position: absolute;
+    top: 0;
+    text-align: center;
+    width: 276px;
+    margin: 0 51px;
+}
+
+.ui-datepicker-calendar {
+    width: 100%;
+}
+
+.ui-datepicker-calendar tbody tr td {
+    text-decoration: none;
+    color: $colorThirdaryText;
+    text-align: center;
+    border: 1px solid $basicBorder;
+    padding: 5px 0;
+}
+
+.ui-datepicker-calendar thead tr th {
+    text-align: center;
+    border: 1px solid $basicBorder;
+    padding: 5px 0;
+}
+
+.ui-datepicker-calendar tbody tr td a {
+    text-decoration: none;
+    color: $colorThirdaryText;
+}
+
+.ui-datepicker-calendar thead tr th a {
+    text-decoration: none;
+    color: $colorThirdaryText;
+}
+
+.ui-datepicker-current-day {
+    background-color: $basicBorder;
+}
+
+.ui-datepicker-unselectable span {
+    color: $colorDisabledText;
+}
+
+.ui-icon-circle-triangle-e {
+    color: $colorThirdary;
+}
+
+.ui-icon-circle-triangle-e::after {
+    color: $colorThirdaryText;
+    content: "\f0a9";
+}
+
+.ui-icon-circle-triangle-w {
+    color: $colorThirdary;
+}
+
+.ui-icon-circle-triangle-w::before {
+    color: $colorThirdaryText;
+    content: "\f0a8";
+}
+
+//End of datapicker
+
+@media (max-width: 980px) {
+    .row {
+        flex-direction: column;
+    }
+    .col {
+        width: 100%;
+    }
+
+    .dropdownButtons {
+        display: flex;
+        align-items: center;
+    }
+    .searchBox {
+        width: auto;
+    }
+    .formTextBox {
+        min-width: 64px;
+    }
+    .modalWindowHeader {
+        flex-direction: column;
+        height: auto;
+        margin: 0 20px;
+    }
+    .modalSmallerContent {
+        width: 100%;
+        height: 100%;
+        margin: 0;
+    }
+    .modalBackground.opened {
+        padding: 0;
+    }
+    .taskContainerBase {
+        flex-direction: column;
+    }
+
+    .baseControl.table {
+        overflow-x: scroll;
+        display: block;
+        width: 100%;
+    }
+
+    .mlAuto.modalHeaderButtons {
+        margin-left: 0;
+    }
+
+    .modalHeaderButtons {
+        flex-direction: column;
+    }
+
+    .editorContainer {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        overflow-y: auto;
+        height: 500px;
+        margin: 8px;
+    }
+}
+
+.containerScroller {
+    overflow: hidden;
+}
+
+.navbar {
+    height: 64px;
+    background-color: #e7e7ea;
+}
+
+.navbarBrand {
+    width: 300px;
+    background-color: #f1f1f4;
+    height: 64px;
+    display: flex;
+}
+
+.navbarContent {
+    width: calc(100vw - 300px);
+    height: 64px;
+    background-color: white;
+    box-shadow: 0 4px 16px 0 rgba(167, 175, 183, 0.33);
+    display: flex;
+    flex-direction: row;
+}
+
+.navbarLogo {
+    width: 170px;
+    max-width: 170px;
+    margin: auto;
+    vertical-align: middle;
+}
+
+.fixedTop {
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    z-index: 2000;
+}
+
+.flexRow {
+    display: flex !important;
+    flex-direction: row;
+}
+
+.contentContainer {
+    min-height: 200vh;
+    background-color: whitesmoke;
+    display: flex;
+    flex-direction: row;
+}
+
+.sidebar {
+    width: 300px;
+    z-index: 11;
+    background-color: #f1f1f4;
+    min-height: calc(100vh-64px);
+    padding-bottom: 50px;
+}
+
+.nav {
+    display: flex;
+    list-style: none;
+    flex-direction: column;
+}
+
+.navItem {
+    line-height: 1;
+    color: black;
+    font-size: 15px;
+}
+
+.navCategory {
+    color: rgba(0, 0, 0, 0.7);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.13);
+    margin: 0 30px;
+    font-size: 15px;
+    font-weight: 500;
+    padding: 10px 0 15px 0;
+}
+
+.navLink,
+.navLink:visited {
+    background-color: transparent;
+    transition: padding 0.3s;
+    position: relative;
+    height: 52px;
+    align-items: center;
+    display: flex;
+    padding: 15px 30px 15px 30px;
+    white-space: nowrap;
+    color: black;
+    text-decoration: none;
+    border: none;
+}
+
+.navTitle {
+    transition: padding 0.3s;
+    font-size: 15px;
+    vertical-align: middle;
+    font-weight: 500;
+    display: inline-block;
+}
+
+.navLink:hover .navTitle,
+.navLink.active .navTitle {
+    padding-left: 10px;
+}
+
+.navIcon {
+    font-size: 15px;
+    color: black;
+    margin-right: 20px;
+}
+
+.container {
+    padding: 1.5rem;
+    width: 100%;
+}
+
+.containerTopbar {
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+}
+
+.containerTitle {
+    font-weight: 400;
+    font-size: 20px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.13);
+}
+
+.containerButtons {
+    display: flex;
+    flex-direction: row;
+    padding: 10px;
+    justify-content: space-between;
+    height: 76px;
+}
+
+.content {
+    min-height: 100px;
+}
+
+@media (max-width: 980px) {
+    .contentContainer {
+        flex-direction: column;
+    }
+
+    .sidebar {
+        width: 100vw;
+    }
+
+    .navbarContent {
+        box-shadow: none;
+        background-color: #f1f1f4;
+    }
+
+    .container {
+        width: 100vw;
+    }
+
+    .navbar {
+        box-shadow: 0 4px 16px 0 rgba(167, 175, 183, 0.33);
+    }
+}
+
+.indicatorItem {
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    perspective: 1000px;
+}
+
+.indicatorTitle {
+    font-size: 15px;
+    height: 32px;
+}
+
+.indicatorItemContainer {
+    transition: 0.6s;
+    transform-style: preserve-3d;
+}
+
+.indicatorItem.active .indicatorItemContainer,
+.indicatorItem.active .indicatorItemContainer {
+    transform: rotateY(180deg);
+}
+
+.indicatorContent,
+.indicatorInfo {
+    backface-visibility: hidden;
+}
+
+.indicatorInfo {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.indicatorContent {
+    z-index: 4000;
+    transform: rotateY(0deg);
+}
+
+.indicatorInfo {
+    z-index: 3999;
+    transform: rotateY(180deg);
+}
+
+.ql-container {
+    height: calc(100% - 42px);
+}
+
+//
+//New boards styles
+//
+
+.transparentButtonLink {
+    background-color: transparent;
+    color: black;
+    border: 1px solid transparent;
+    font-size: 1rem;
+    padding: 2px;
+    text-decoration: none;
+    font-weight: 400;
+    font-family: "Roboto", sans-serif;
+    line-height: 1.5;
+    display: block;
+    text-align: left;
+}
+
+.transparentButtonLink:hover {
+    background-color: #00000020;
+}
+
+@keyframes spinner {
+    0% {
+        transform: translate3d(-50%, -50%, 0) rotate(0deg);
+    }
+    100% {
+        transform: translate3d(-50%, -50%, 0) rotate(360deg);
+    }
+}
+.spin::before {
+    animation: 1.5s linear infinite spinner;
+    animation-play-state: inherit;
+    border: solid 5px transparent;
+    border-bottom-color: white;
+    border-radius: 50%;
+    content: "";
+    height: 40px;
+    width: 40px;
+    position: fixed;
+    top: calc(50%-20px);
+    left: calc(50%-20px);
+    transform: translate3d(-50%, -50%, 0);
+    will-change: transform;
+}
+
+.loadingScreen {
+    background-color: #9e9e9e;
+}
+
+.modalLoading {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+}
+
+.spinner-box {
+    width: 300px;
+    height: 300px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: transparent;
+}
+
+.circle-border {
+    width: 150px;
+    height: 150px;
+    padding: 3px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    background: rgb(63, 249, 220);
+    background: linear-gradient(0deg, rgba(63, 249, 220, 0.1) 33%, rgba(13, 71, 161, 1) 100%);
+    animation: spin 0.8s linear 0s infinite;
+}
+
+.circle-core {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background-color: white;
+}

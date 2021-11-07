@@ -3,16 +3,6 @@
     </div>
 </div>
 <div style="display: none" id="boardContainer">
-    <div class="boardTopbar">
-        <?= formButtonLink('<i class="fas fa-home"></i>', '*boardsGotoHome()', 'baseButton'); ?>
-        <?= formBegin(); ?>
-        <div class="boardName">
-            <input type="text" id="boardName" value="Title" onblur="boardsChangeBoardName()" />
-        </div>
-        <?= formEnd(); ?>
-        <?= formButtonLink('<i class="fas fa-users"></i>', '*boardsOpenUsers()', 'baseButton" id="boardsUsersButton'); ?>
-    </div>
-
     <div class="boardContainer">
         <div class="taskContainerBase" id="board">
 
@@ -23,8 +13,8 @@
                 <div class="newColumnActive" id="boardNewColumnActive">
                     <input type="hidden" id="boardNewColumnBoardId" />
                     <?= formTextBox("Nazwa kolumny", "columnName", "boardNewColumnName"); ?>
-                    <div class="row">
-                        <?= formButtonLink("Nowa kolumna", "*boardsCreateColumnSubmit()", "baseButton"); ?>
+                    <div class="row" style="justify-content: center">
+                        <?= formButtonLink('<i class="fas fa-check"></i>', "*boardsCreateColumnSubmit()", "transparentButtonLink greenColor"); ?>
                         <?= formButtonLink('<i class="fas fa-times"></i>', '*boardsShowNewColumn(false)', 'transparentButtonLink'); ?>
                     </div>
                 </div>

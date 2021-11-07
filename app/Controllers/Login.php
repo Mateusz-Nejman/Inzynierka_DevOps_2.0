@@ -17,7 +17,7 @@ class Login extends BaseController
 
 	public function index()
 	{
-		return showPage("login", [], [],["login.js"]);
+		return showPage("login", ["logged" => false], [],["login.js"]);
 	}
 
     public function login()
@@ -74,5 +74,10 @@ class Login extends BaseController
         set_cookie("devops20", $userData->id . "[DEV]" . password_hash($userData->email . "[DEV]" . $userData->password, PASSWORD_DEFAULT), 2678400);
 
         return $this->response->setJSON(["state" => 0, "message" => "successfully logged"]);
+    }
+
+    public function logout()
+    {
+        delete_cookie("devops20");
     }
 }

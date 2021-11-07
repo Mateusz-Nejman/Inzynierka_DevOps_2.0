@@ -3,9 +3,14 @@
 if(!function_exists('showPage')) {
     function showPage($templateName, $data = [], $modals = [], $additionalScripts = [])
     {
-        echo view("header");
-        echo view($templateName,$data);
-        echo view("footer", ["modals" => $modals, "scripts" => $additionalScripts, "cacheClear" => 100]);
+        echo view("template", [
+            "content" => view($templateName, $data),
+            "modals" => $modals,
+            "scripts" => $additionalScripts,
+            "menu" => [],
+            "buttons" => [],
+            "cacheClear" => rand(0,100) //TODO
+        ]);
     }
 }
 
