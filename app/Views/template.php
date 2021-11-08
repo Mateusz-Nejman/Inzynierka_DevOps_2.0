@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="/assets/css/fontAwesome.min.css">
     <link rel="stylesheet" href="/assets/css/styles.css?v=<?= $cacheClear; ?>">
     <link rel="stylesheet" href="/assets/css/board.css?v=<?= $cacheClear; ?>">
+    <link rel="stylesheet" href="/assets/css/components.css?v=<?= $cacheClear; ?>">
     <link rel="stylesheet" href="/assets/css/quill.snow.css?v=<?= $cacheClear; ?>">
     <link rel="stylesheet" href="/assets/css/newDatatables.css">
     <link rel="stylesheet" href="/assets/css/highlight.min.css">

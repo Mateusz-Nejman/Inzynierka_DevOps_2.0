@@ -1,4 +1,5 @@
 <?php
+//Dashboard module
 
 if (!function_exists('getCountries')) {
     function getCountries()
@@ -290,15 +291,7 @@ if (!function_exists('formDatePickerTitled')) {
 if (!function_exists('formCountriesBox')) {
     function formCountriesBox($title, $name, $id, $value = 616)
     {
-        $control = '<select class="formListBox" name="' . $name . '" id="' . $id . '">';
-
-        foreach (getCountries() as $index => $country) {
-            $control .= '<option value="' . $index . '" ' . ($index == $value ? "selected" : "") . '>' . $country . '</option>';
-        }
-
-        $control .= '</select>';
-
-        return $control;
+        return formListBox($title, $name, $id, $value, getCountries());
     }
 }
 
@@ -314,7 +307,7 @@ if (!function_exists('formListBox')) {
     { //items -> ["value" => "title"]
         $onChanged = $onChanged == "" ? "" : "onchange='{$onChanged}'";
         $disabledText = $disabled ? "disabled" : "";
-        $control = '<select class="formListBox" name="' . $name . '" id="' . $id . '" ' . $onChanged . ' ' . $disabledText . '>';
+        $control = '<label class="formListBox"><select name="' . $name . '" id="' . $id . '" ' . $onChanged . ' ' . $disabledText . '>';
         if ($canBeNull)
             $control .= '<option value="-1" ' . ($value == -1 ? "selected" : "") . '>' . $title . '</option>';
 
@@ -322,7 +315,7 @@ if (!function_exists('formListBox')) {
             $control .= '<option value="' . $index . '" ' . ($index == $value ? "selected" : "") . '>' . $item . '</option>';
         }
 
-        $control .= '</select>';
+        $control .= '</select><svg viewbox="0 0 10 6"><polyline points="1 1 5 5 9 1"></polyline></svg></label>';
 
         return $control;
     }
@@ -336,15 +329,15 @@ if (!function_exists('formListBoxTitled')) {
 }
 
 if (!function_exists('formDropdownButton')) {
-    function formDropdownButton($icon, $id, $menuItems = [], $additionalContent = "")
+    function formDropdownButton($icon, $id, $menuItems = [], $additionalContent = "", bool $middle = false, $smallerIcon = false)
     { //[["title" => "", "link" => ""]]
         $control = '<div class="dropdown">';
-        $control .= '<button type="button" class="topbarButtonSmaller dropdownButton" onclick="openDropdown(\'' . $id . '\')"><i class="' . $icon . '"></i></button>';
-        $control .= '<div id="' . $id . '" class="dropdownContent">';
+        $control .= '<button type="button" class="' . ($smallerIcon ? 'transparent baseLink' : 'topbarButtonSmaller dropdownButton') . '" onclick="openDropdown(\'' . $id . '\')"><i class="' . $icon . '"></i></button>';
+        $control .= '<div id="' . $id . '" class="dropdownContent' . ($middle ? "Middle" : "") . '">';
         $control .= $additionalContent;
 
         foreach ($menuItems as $menuItem) {
-            $control .= formButtonLink($menuItem["title"], $menuItem["link"], "baseButtonLink width100");
+            $control .= formButtonLink($menuItem["title"], $menuItem["link"], "baseButtonLink width100" . (isset($menuItem["newTab"]) && $menuItem["newTab"] ? '" target="_blank"' : ''));
         }
 
         $control .= '</div></div>';
@@ -360,7 +353,7 @@ if (!function_exists('formButtonLink')) {
         $linkSource = $isButton ? 'onclick="' . substr($link, 1) . '"' : 'href="' . $link . '"';
 
         if ($isButton)
-            return '<button type="button" class="' . $className . '" ' . $linkSource . '><span>' . $title . '</span></button>';
+            return '<button type="button" class="' . $className . '" ' . $linkSource . '>' . $title . '</button>';
         else
             return '<a class="' . $className . '" ' . $linkSource . '>' . $title . '</a>';
     }
@@ -368,15 +361,21 @@ if (!function_exists('formButtonLink')) {
 
 
 if (!function_exists('formCheckBox')) {
-    function formCheckBox(string $title, string $name, string $id, bool $value, string $onChanged = ""): string
+    function formCheckBox(string $title, string $name, string $id, bool $value, string $onChanged = "", bool $titled = true): string
     {
         $checkedText = $value ? "checked" : "";
         $onChangedText = $onChanged == "" ? "" : 'onclick="' . $onChanged . '"';
 
-        $control = '<div class="formTextBoxTitled"><span>' . $title . '</span>';
+        $control = "";
 
-        $control .= '<div class="formCheckboxFrame"><input class="formCheckbox" type="checkbox" name="' . $name . '" id="' . $id . '" ' . $checkedText . ' ' . $onChangedText . '><label for="' . $id . '"></label></div>';
-        $control .= '</div>';
+        if ($titled) {
+            $control = '<div class="formTextBoxTitled"><span>' . $title . '</span>';
+
+            $control .= '<div class="formCheckboxFrame"><input class="formCheckbox" type="checkbox" name="' . $name . '" id="' . $id . '" ' . $checkedText . ' ' . $onChangedText . '><label for="' . $id . '"></label></div>';
+            $control .= '</div>';
+        } else {
+            $control = '<div class="formCheckboxFrame"><input class="formCheckbox" type="checkbox" name="' . $name . '" id="' . $id . '" ' . $checkedText . ' ' . $onChangedText . '><label for="' . $id . '"></label></div>';
+        }
 
         return $control;
     }
@@ -408,7 +407,7 @@ if (!function_exists('formListBoxValuable')) {
 
         $listBox .= '</select>';
 
-        $firstLayer = '<div class="row"><div class="col75">' . $listBox . '</div><div class="col25">' . formButtonLink('<i class="fas fa-plus"></i>', "*" . $jsMethod . "('" . $id . "')", "baseButtonM0 height100") . '</div></div>';
+        $firstLayer = '<div class="row"><div class="col75">' . $listBox . '</div><div class="col25">' . formButtonLink('<i class="fas fa-plus"></i>', "*" . $jsMethod . "('" . $id . "')", "baseButton margin0 height100") . '</div></div>';
         $secondLayer = '<div id="flbvc' . $id . '"></div>';
 
         $container .= $firstLayer;
@@ -463,7 +462,7 @@ if (!function_exists('formCheckTreeView')) {
         $control = '<ul class="formTreeViewUl">';
 
         foreach ($items as $index => $item) {
-            $li = '<li class="formTreeViewLi"><input type="checkbox" id="' . $id . '_' . $index . '"><label for="' . $id . '_' . $index . '">' . $item->name . '</label>';
+            $li = '<li class="formTreeViewLi"><input type="checkbox" id="' . $id . '_' . $item->id . '"><label for="' . $id . '_' . $item->id . '">' . $item->name . '</label>';
 
             if (isset($item->children) && count($item->children) > 0) {
                 $li .= getTreeNode($id, $item->children);
@@ -522,5 +521,20 @@ if (!function_exists('formEnd')) {
     function formEnd()
     {
         return '</form>';
+    }
+}
+
+if (!function_exists('formFilePicker')) {
+    function formFilePicker($title, $name, $id, $buttonText = "Wybierz", $multiple = false, $accept = "")
+    {
+        $content = '<div class="formTextBoxTitled">';
+        $content .= '<span>' . $title . '</span>';
+        $content .= '<div class="rowStatic">';
+        $content .= '<label for="' . $id . '" class="baseButton">' . $buttonText . '</label>';
+        $content .= '<input type="text" class="formTextBox" id="' . $id . 'Text" disabled value="Nie wybrano pliku"/>';
+        $content .= '<input type="file" style="display: none" id="' . $id . '" class="inputFile" ' . ($multiple ? "multiple" : "") . ($accept != "" ? ' accept="' . $accept . '"' : '') . '/>';
+        $content .= '</div></div>';
+
+        return $content;
     }
 }

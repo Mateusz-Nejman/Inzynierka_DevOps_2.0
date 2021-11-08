@@ -322,7 +322,6 @@ body {
 }
 
 .baseControl {
-    margin: 20px 0;
     padding: 10px;
     background-color: $colorThirdary;
     border-radius: 8px;
@@ -454,9 +453,7 @@ div.responsiveTable {
 .modalWindowHeader {
     display: flex;
     flex-direction: row;
-    height: 64px;
-    margin: 0 0 0 20px;
-    border-bottom: 1px solid $basicBorder;
+    height: 34px;
 }
 
 .modalWindowButton {
@@ -493,143 +490,6 @@ div.responsiveTable {
 }
 
 //END OF MODAL PROTOTYPE
-//Controls
-.formLoginBorder {
-    padding: 20px;
-    margin: 20px auto;
-    width: 400px;
-    border: 1px solid black;
-    border-radius: 8px;
-}
-
-.formGroup {
-    display: flex;
-    flex-direction: column;
-    padding: 20px 0;
-}
-
-.formGroupTitle {
-    font-weight: 400;
-    margin: 10px;
-}
-
-.formTextBoxTitled {
-    padding: 0;
-}
-
-.formTextBoxTitled span {
-    color: $colorThirdaryText;
-    font-size: 12px;
-    padding: 15px 0 5px 0;
-    display: block;
-}
-
-.formTextBox {
-    margin: 8px;
-    width: calc(100% - 16px);
-    padding: 8px;
-    height: 40px;
-    border: 1px solid $basicBorder;
-    color: $colorThirdaryText;
-    font-size: 1rem;
-}
-
-.formCheckbox {
-    display: none;
-}
-
-.formCheckboxFrame {
-    width: 22px;
-    height: 22px;
-}
-
-input[type="checkbox"],
-input[type="radio"] {
-    display: none;
-}
-
-input[type="checkbox"] + label,
-input[type="radio"] + label {
-    display: block;
-    position: relative;
-    padding-left: 35px;
-    margin-bottom: 20px;
-    cursor: pointer;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-}
-
-input[type="checkbox"] + label:last-child,
-input[type="radio"] + label:last-child {
-    margin-bottom: 0;
-}
-
-input[type="checkbox"] + label:before,
-input[type="radio"] + label:before {
-    content: "";
-    display: block;
-    width: 20px;
-    height: 20px;
-    border: 1px solid #4c4c47;
-    position: absolute;
-    left: 0;
-    top: 0;
-    opacity: 0.6;
-    -webkit-transition: all 0.12s, border-color 0.08s;
-    transition: all 0.12s, border-color 0.08s;
-}
-
-input[type="checkbox"]:disabled + label:before {
-    filter: blur(4px);
-}
-
-input[type="checkbox"]:checked + label:before,
-input[type="radio"]:checked + label:before {
-    width: 10px;
-    top: -5px;
-    left: 5px;
-    border-radius: 0;
-    opacity: 1;
-    border-top-color: transparent;
-    border-left-color: transparent;
-    -webkit-transform: rotate(45deg);
-    transform: rotate(45deg);
-}
-
-.formBoxInvalid {
-    border: 1px solid #d50000;
-}
-
-.formTextBox ::placeholder {
-    color: $basicBorder;
-}
-
-.formTextBox :disabled {
-    border: 1px solid $colorDisabledText;
-    color: $colorDisabledText;
-}
-
-.formListBox {
-    -webkit-appearance: none;
-    width: calc(100% - 16px);
-    padding: 8px;
-    height: 40px;
-    border: 1px solid $basicBorder;
-    color: $colorThirdaryText;
-    font-size: 1rem;
-    border-radius: 2px;
-    margin: 8px;
-}
-
-.formTreeViewUl {
-    padding-inline-start: 20px;
-    list-style-type: none;
-}
-
-.formTreeViewLi {
-    padding: 5px;
-}
 
 .baseButtonLink {
     background-color: transparent;

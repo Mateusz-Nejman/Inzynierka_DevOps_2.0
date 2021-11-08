@@ -1,0 +1,315 @@
+/*$colorPrimary: #202225;
+$colorSecondary: #2f3136;
+$colorThirdary: white;
+$colorPrimaryText: white;
+$colorSecondaryText: #2f3136;
+$colorDisabledText: #dee2e6;
+$basicBorder: #dee2e6;*/
+
+$colorPrimary: #9a0000;
+$colorSecondary: #f0f0f0;
+$colorThirdary: white;
+$colorPrimaryText: white;
+$colorSecondaryText: #b0bec5;
+$colorThirdaryText: black;
+$colorDisabledText: #dee2e6;
+$basicBorder: #dee2e6;
+$notificationBackground: #2d2d2a;
+$notificationColor: white;
+
+$contrastColor: #2d2d2a;
+$baseColor: #4c4c47;
+$baseTextColor: white;
+
+$sidebarBackground: white;
+$sidebarColor: #1f1f1f;
+$sidebarColorSecond: #1E88E5;
+
+$mainBackground: whitesmoke;
+$mainColor: #1f1f1f;
+
+$containerBackground: white;
+$containerColor: #1f1f1f;
+
+.margin0 {
+    margin: 0 !important;
+}
+
+.baseButton {
+    background: linear-gradient(#039BE5, #1E88E5);
+    color: white;
+    border: 1px solid transparent;
+    font-size: 0.75rem;
+    margin: 8px;
+    padding: 10px 16px;
+    text-decoration: none;
+    font-weight: 400;
+    font-family: "Roboto", sans-serif;
+    line-height: 1.2;
+    border-radius: 6px;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.baseButton:hover {
+    background-color: transparent;
+    color: #1f1f1f;
+    border: 1px solid #1f1f1f;
+    transition: all 0.3s;
+    cursor: pointer;
+}
+
+.baseButton.link {
+    background-color: transparent;
+    color: $baseColor;
+}
+
+.baseButton.link:hover,
+.baseButton.link.alert:hover {
+    color: black;
+    border: 1px solid transparent;
+}
+
+.baseButton.link.alert {
+    color: #d50000;
+}
+
+.formLoginBorder {
+    padding: 20px;
+    margin: 20px auto;
+    width: 400px;
+    border: 1px solid black;
+    border-radius: 8px;
+}
+
+.formGroup {
+    display: flex;
+    flex-direction: column;
+    padding: 20px 0;
+}
+
+.formGroupTitle {
+    font-weight: 400;
+    margin: 10px;
+}
+
+.formTextBoxTitled {
+    padding: 0;
+}
+
+.formTextBoxTitled span {
+    color: $colorThirdaryText;
+    font-size: 12px;
+    padding: 15px 0 5px 0;
+    display: block;
+}
+
+.formTextBox {
+    margin: 8px;
+    width: calc(100% - 16px);
+    padding: 8px;
+    height: 40px;
+    border: 1px solid $basicBorder;
+    color: $colorThirdaryText;
+    font-size: 1rem;
+}
+
+.formCheckbox {
+    display: none;
+}
+
+.formCheckboxFrame {
+    width: 22px;
+    height: 22px;
+}
+
+input[type="checkbox"],
+input[type="radio"] {
+    display: none;
+}
+
+input[type="checkbox"] + label,
+input[type="radio"] + label {
+    display: block;
+    position: relative;
+    padding-left: 35px;
+    margin-bottom: 20px;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+}
+
+input[type="checkbox"] + label:last-child,
+input[type="radio"] + label:last-child {
+    margin-bottom: 0;
+}
+
+input[type="checkbox"] + label:before,
+input[type="radio"] + label:before {
+    content: "";
+    display: block;
+    width: 20px;
+    height: 20px;
+    border: 1px solid #4c4c47;
+    position: absolute;
+    left: 0;
+    top: 0;
+    opacity: 0.6;
+    -webkit-transition: all 0.12s, border-color 0.08s;
+    transition: all 0.12s, border-color 0.08s;
+}
+
+input[type="checkbox"]:disabled + label:before {
+    filter: blur(4px);
+}
+
+input[type="checkbox"]:checked + label:before,
+input[type="radio"]:checked + label:before {
+    width: 10px;
+    top: -5px;
+    left: 5px;
+    border-radius: 0;
+    opacity: 1;
+    border-top-color: transparent;
+    border-left-color: transparent;
+    -webkit-transform: rotate(45deg);
+    transform: rotate(45deg);
+}
+
+.formBoxInvalid {
+    border: 1px solid #d50000;
+}
+
+.formTextBox ::placeholder {
+    color: $basicBorder;
+}
+
+.formTextBox :disabled {
+    border: 1px solid $colorDisabledText;
+    color: $colorDisabledText;
+}
+
+.formListBox {
+    position: relative;
+    width: calc(100% - 16px);
+    display: block;
+}
+
+.formListBox select {
+    -webkit-appearance: none;
+    width: 100%;
+    padding: 8px;
+    height: 40px;
+    border: 1px solid $basicBorder;
+    color: $colorThirdaryText;
+    font-size: 1rem;
+    border-radius: 2px;
+    margin: 8px;
+}
+
+.formListBox svg {
+    position: absolute;
+    right: 0; 
+    top: calc(50% - 3px);
+    width: 10px;
+    height: 6px;
+    stroke-width: 2px;
+    stroke: #9098a9;
+    fill: none;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    pointer-events: none;
+}
+
+.formTreeViewUl {
+    padding-inline-start: 20px;
+    list-style-type: none;
+}
+
+.formTreeViewLi {
+    padding: 5px;
+}
+
+.baseButtonLink {
+    background-color: transparent;
+    color: $colorThirdaryText;
+    border: 1px solid transparent;
+    font-size: 1rem;
+    padding: 10px 20px;
+    text-decoration: none;
+    font-weight: 400;
+    font-family: "Roboto", sans-serif;
+    line-height: 1.5;
+    display: block;
+    text-align: left;
+}
+
+.baseButtonLinkSmaller {
+    background-color: transparent;
+    color: $colorThirdaryText;
+    border: 1px solid transparent;
+    font-size: 1rem;
+    padding: 5px 20px;
+    text-decoration: none;
+    font-weight: 400;
+    font-family: "Roboto", sans-serif;
+    line-height: 1.5;
+    display: block;
+    text-align: left;
+}
+
+.baseButtonLink:hover,
+.baseButtonLinkSmaller:hover {
+    background-color: #00000020;
+}
+
+.dropdownButton {
+    cursor: pointer;
+    background-color: transparent;
+    color: $contrastColor;
+    border: 1px solid transparent;
+    width: 28px;
+    height: 48px;
+    font-size: 1.25rem;
+    margin: 8px;
+}
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdownContent {
+    display: none;
+    position: absolute;
+    right: 24px;
+    top: 40px;
+    background-color: $colorThirdary;
+    min-width: 250px;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    z-index: 10;
+}
+
+.dropdownContentMiddle {
+    display: none;
+    position: absolute;
+    right: 24px;
+    top: -140px;
+    background-color: $colorThirdary;
+    min-width: 250px;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    z-index: 10;
+}
+
+.dropdownContent.active,
+.dropdownContentMiddle.active {
+    display: block;
+}
+
+.colorBlock {
+    width: 32px;
+    height: 32px;
+}
