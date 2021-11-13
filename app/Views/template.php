@@ -7,8 +7,8 @@
 
     <link rel="stylesheet" href="/assets/css/template/styles.css?v=<?= $cacheClear; ?>">
     <link rel="stylesheet" href="/assets/css/fontAwesome.min.css">
-    <link rel="stylesheet" href="/assets/css/styles.css?v=<?= $cacheClear; ?>">
-    <link rel="stylesheet" href="/assets/css/board.css?v=<?= $cacheClear; ?>">
+    <link rel="stylesheet" href="/assets/css/styles.css?v=<?= $cacheClear; ?>2">
+    <link rel="stylesheet" href="/assets/css/board.css?v=<?= $cacheClear; ?>1">
     <link rel="stylesheet" href="/assets/css/components.css?v=<?= $cacheClear; ?>">
     <link rel="stylesheet" href="/assets/css/quill.snow.css?v=<?= $cacheClear; ?>">
     <link rel="stylesheet" href="/assets/css/newDatatables.css">
@@ -44,7 +44,7 @@
     </div>
     <?php foreach ($modals as $modal) : ?>
         <div class="modalBackground" id="<?= $modal["name"]; ?>">
-            <div class="modalSmallerContent">
+            <div class="modalContent">
                 <div class="modalWindowHeader">
                     <div class="modalWindowTitle mrAuto"></div>
                     <div class="mlAuto"><button type="button" class="baseButton" id="modalClose<?= $modal["name"]; ?>"><i class="fas fa-times"></i></button></div>
@@ -71,11 +71,12 @@
     <script src="/assets/js/components.js?v=<?= $cacheClear; ?>"></script>
     <script src="/assets/js/moment.js"></script>
     <script src="/assets/js/base.js?v=<?= $cacheClear; ?>"></script>
+    <script src="/assets/js/utils.js"></script>
     <?php foreach ($scripts as $scriptPath) : ?>
         <?php if (strpos($scriptPath, "http") === 0) : ?>
             <script src="<?= $scriptPath; ?>"></script>
         <?php else : ?>
-            <script src="/assets/js/<?= $scriptPath; ?>?v=<?= $cacheClear; ?>1"></script>
+            <script src="/assets/js/<?= $scriptPath; ?>?v=<?= $cacheClear; ?>999999999"></script>
         <?php endif; ?>
     <?php endforeach; ?>
     <script>
@@ -99,6 +100,11 @@
                     }
                 });
             <?php endforeach; ?>
+        });
+    </script>
+    <script>
+        $(document).ready(() => {
+            <?= $script; ?>
         });
     </script>
 </body>

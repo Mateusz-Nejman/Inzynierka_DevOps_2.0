@@ -17,11 +17,19 @@ class Boards extends BaseController
 
 	public function index($link = "")
 	{
+		$script = "";
+
+		if ($link != "") {
+			$linkObject = json_decode(base64_decode(urldecode($link)));
+
+			$boardArray = $this->getBoardToOpen(intval($linkObject->taskId));
+			$script = "boardsGotoBoard({$boardArray[0]}); boardsOpenEditTask({$boardArray[1]});";
+		}
 		return showPage("board_index", ["logged" => true], [
 			createModal("Nowe zadanie", "newTask", "board_new_task"),
 			createModal("Edytuj zadanie", "editTask", "board_edit_task"),
 			createModal("Użytkownicy", "boardUsers", "board_users")
-		], ["boards.js"]);
+		], ["boards.js"], $script);
 	}
 
 	public function getData()
@@ -71,15 +79,19 @@ class Boards extends BaseController
 				$taskObject->assignedTo = $task->assignedTo;
 				$taskObject->priority = $task->priority;
 
-				if (in_array($task->assignedTo, $userIds)) {
-					$index = array_search($task->assignedTo, $userIds);
-
-					$taskObject->email = $usersData[$index]->email;
+				if ($task->assignedTo == 0) {
+					$taskObject->email = "nieprzypisany@nieprzypisany.com";
 				} else {
-					$user = $this->db->table("users")->where("id", $task->assignedTo)->get()->getRow();
-					$userIds[] = $task->assignedTo;
-					$usersData[] = $user;
-					$taskObject->email = $user->email;
+					if (in_array($task->assignedTo, $userIds)) {
+						$index = array_search($task->assignedTo, $userIds);
+
+						$taskObject->email = $usersData[$index]->email;
+					} else {
+						$user = $this->db->table("users")->where("id", $task->assignedTo)->get()->getRow();
+						$userIds[] = $task->assignedTo;
+						$usersData[] = $user;
+						$taskObject->email = $user->email;
+					}
 				}
 
 				$object->tasks[] = $taskObject;
@@ -131,6 +143,118 @@ class Boards extends BaseController
 		$this->changeTasksOrderIds($ids);
 
 		return $this->response->setJSON(["state" => 0, "message" => "Pomyślnie przeniesiono"]);
+	}
+
+	public function moveTaskToBoard($query, $taskId)
+	{
+		$userData = getLoggedUserData();
+
+		$isBoard = strpos($query, "board") === 0;
+		$isColumn = strpos($query, "column") === 0;
+
+		if ($taskId == 0 || (!$isBoard && !$isColumn)) {
+			return;
+		}
+
+		if (!$this->hasUserAccessToTask($userData->id, $taskId, true)) {
+			return;
+		}
+
+		$columnId = 0;
+		$showOrder = 0;
+
+		if ($isBoard) {
+			$boardId = intval(str_replace("board", "", $query));
+			$firstBoardColumn = $this->db->table("boardColumns")->where("boardId", $boardId)->where("archive", 0)->get()->getRow();
+
+			if ($firstBoardColumn == null) {
+				$this->db->table("boardColumns")->insert([
+					"boardId" => $boardId,
+					"name" => "Nowa kolumna",
+					"showOrder" => 0,
+					"archive" => 0
+				]);
+
+				$firstBoardColumn = $this->db->table("boardColumns")->where("boardId", $boardId)->where("archive", 0)->get()->getRow();
+			}
+
+			$columnId = $firstBoardColumn->id;
+		}
+
+		if ($isColumn) {
+			$columnId = intval(str_replace("column", "", $query));
+		}
+
+		$lastColumnTask = $this->db->table("boardItems")->where("columnId", $columnId)->where("archive", 0)->orderBy("showOrder", "desc")->get()->getRow();
+
+		if ($lastColumnTask != null) {
+			$showOrder = $lastColumnTask->showOrder + 1;
+		}
+
+		$this->db->table("boardItems")->where("id", $taskId)->update([
+			"columnId" => $columnId,
+			"showOrder" => $showOrder
+		]);
+	}
+
+	public function getUserColumns($userId, $taskId)
+	{
+		$userBoards = $this->db->table("userBoards")->where("userId", $userId)->get()->getResult();
+		$userBoardsIds = [];
+
+		$task = $this->db->table("boardItems")->where("id", $taskId)->get()->getRow();
+
+		foreach ($userBoards as $userBoard) {
+			$userBoardsIds[] = $userBoard->boardId;
+		}
+
+		$boardsRaw = $this->db->table("boards")->whereIn("id", $userBoardsIds)->where("archive", 0)->get()->getResult();
+		$boards = [];
+		$boardIds = [];
+		$baseBoardId = 0;
+
+		foreach ($boardsRaw as $board) {
+			$boardIds[] = $board->id;
+			$boards[$board->id] = $board;
+		}
+
+		$columns = $this->db->table("boardColumns")->whereIn("boardId", $boardIds)->where("archive", 0)->orderBy("boardId", "asc")->get()->getResult();
+		$boardColumns = [];
+
+		foreach ($columns as $column) {
+			if (!isset($boardColumns[$column->boardId])) {
+				$boardColumns[$column->boardId] = [];
+			}
+
+			$boardColumns[$column->boardId][] = [$column->id, $column->name];
+
+			if ($column->id == $task->columnId) {
+				$baseBoardId = $column->boardId;
+			}
+		}
+
+		$baseBoard = $boardColumns[$baseBoardId];
+
+		$result = [];
+		$result[] = ["board{$baseBoardId}", $boards[$baseBoardId]->name];
+
+		foreach ($baseBoard as $board) {
+			$result[] = ["column{$board[0]}", "--- {$board[1]}"];
+		}
+
+		foreach ($boardColumns as $id => $_boardColumns) {
+			if ($id == $baseBoardId) {
+				continue;
+			}
+
+			$result[] = ["board{$id}", $boards[$id]->name];
+
+			foreach ($_boardColumns as $boardColumn) {
+				$result[] = ["column{$boardColumn[0]}", "--- {$boardColumn[1]}"];
+			}
+		}
+
+		return $result;
 	}
 
 	public function changeColumnsOrder()
@@ -200,7 +324,7 @@ class Boards extends BaseController
 		$assignedTo = intval($this->request->getVar("assignedTo"));
 		$priority = intval($this->request->getVar("priority"));
 
-		if ($columnId == 0 || strlen(trim($name)) == 0 || $assignedTo == 0 || $priority < 0 || $priority > 4) {
+		if ($columnId == 0 || strlen(trim($name)) == 0 || $priority < 0 || $priority > 4) {
 			return $this->response->setJSON(["state" => 0, "message" => "Błąd serwera. Kod #BS008"]);
 		}
 
@@ -225,8 +349,8 @@ class Boards extends BaseController
 		$object = new stdClass();
 		$object->id = $task->id;
 		$object->name = $task->name;
-		$object->userId = $userData->id;
-		$object->email = $userData->email;
+		$object->userId = $assignedTo;
+		$object->email = $assignedTo == 0 ? "nieprzypisany@nieprzypisany.com" : $this->db->table("users")->where("id", $assignedTo)->get()->getRow()->email;
 		$object->priority = $task->priority;
 
 		return $this->response->setJSON(["state" => 0, "message" => "Pomyślnie stworzono", "data" => $object]);
@@ -244,8 +368,12 @@ class Boards extends BaseController
 		$description = $this->request->getVar("description");
 		$assignedTo = intval($this->request->getVar("assignedTo"));
 		$priority = intval($this->request->getVar("priority"));
+		$column = $this->request->getVar("column");
 
-		if ($id == 0 || strlen(trim($name)) == 0 || $assignedTo == 0 || $priority < 0 || $priority > 4) {
+		$task = $this->db->table("boardItems")->where("id", $id)->get()->getRow();
+		$previousQuery = "column{$task->columnId}";
+
+		if ($id == 0 || strlen(trim($name)) == 0 || $priority < 0 || $priority > 4) {
 			return $this->response->setJSON(["state" => 0, "message" => "Błąd serwera. Kod #BS009"]);
 		}
 
@@ -263,6 +391,12 @@ class Boards extends BaseController
 		$object = new stdClass();
 		$object->id = $id;
 		$object->name = $name;
+		$object->userId = $assignedTo;
+		$object->email = $assignedTo == 0 ? "nieprzypisany@nieprzypisany.com" : $this->db->table("users")->where("id", $assignedTo)->get()->getRow()->email;
+
+		if ($previousQuery != $column) {
+			$this->moveTaskToBoard($column, $id);
+		}
 
 		return $this->response->setJSON(["state" => 0, "message" => "Pomyślnie edytowano", "data" => $object]);
 	}
@@ -296,6 +430,7 @@ class Boards extends BaseController
 		$object->description = $taskRaw->description;
 		$object->assignedTo = $taskRaw->assignedTo;
 		$object->priority = $taskRaw->priority;
+		$object->columnId = $taskRaw->columnId;
 
 		$comments = [];
 
@@ -307,7 +442,7 @@ class Boards extends BaseController
 			$comments[] = $comment;
 		}
 
-		return $this->response->setJSON(["data" => $object, "comments" => $comments]);
+		return $this->response->setJSON(["data" => $object, "comments" => $comments, "toMove" => $this->getUserColumns($userData->id, $id)]);
 	}
 
 	public function archiveColumn()
@@ -419,13 +554,11 @@ class Boards extends BaseController
 
 		$boards = $this->db->table("boards")->where("archive", 0)->whereIn("id", $boardIds)->get()->getResult();
 
-		foreach($boards as $board)
-		{
+		foreach ($boards as $board) {
 			$columns = $this->db->table("boardColumns")->where("boardId", $board->id)->where("archive", 0)->get()->getResult();
 			$columnIds = [];
 
-			foreach($columns as $column)
-			{
+			foreach ($columns as $column) {
 				$columnIds[] = $column->id;
 			}
 
@@ -613,6 +746,17 @@ class Boards extends BaseController
 
 		$this->db->table("userBoards")->where("userId", $userId)->where("boardId", $boardId)->delete();
 
+		$boardColumns = $this->db->table("boardColumns")->where("boardId", $boardId)->get()->getResult();
+		$columnIds = [];
+
+		foreach ($boardColumns as $column) {
+			$columnIds[] = $column->id;
+		}
+
+		$this->db->table("boardItems")->where("assignedTo", $userId)->whereIn("columnId", $columnIds)->update([
+			"assignedTo" => 0
+		]);
+
 		return $this->response->setJSON(["state" => 0, "message" => "Pomyślnie usunięto", "selfRemove" => $userData->id == $userId]);
 	}
 
@@ -722,5 +866,36 @@ class Boards extends BaseController
 		}
 
 		return $this->hasUserAccessToColumn($userId, $task->columnId, $checkRole, $role);
+	}
+
+	private function getBoardToOpen($taskId)
+	{
+		$userData = getLoggedUserData();
+
+		$task = $this->db->table("boardItems")->where("id", $taskId)->where("archive", 0)->get()->getRow();
+
+		if ($task == null) {
+			return null;
+		}
+
+		$column = $this->db->table("boardColumns")->where("id", $task->columnId)->where("archive", 0)->get()->getRow();
+
+		if ($column == null) {
+			return null;
+		}
+
+		$board = $this->db->table("boards")->where("id", $column->boardId)->where("archive", 0)->get()->getRow();
+
+		if ($board == null) {
+			return null;
+		}
+
+		$userBoard = $this->db->table("userBoards")->where("userId", $userData->id)->where("boardId", $board->id)->get()->getRow();
+
+		if ($userBoard == null) {
+			return null;
+		}
+
+		return [$board->id, $task->id];
 	}
 }

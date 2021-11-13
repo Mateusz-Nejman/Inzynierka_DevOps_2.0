@@ -6,6 +6,7 @@
                 <?= formTextBoxTitled("Nazwa", "name", "boardsEditTaskName"); ?>
                 <?= formListBoxTitled("Zadanie użytkownika", "assignedTo", "boardsEditTaskAssignedTo", -1, []); ?>
                 <?= formListBoxTitled("Priorytet", "priority", "boardsEditTaskPriority", 1, ["Bardzo niski", "Niski", "Średni", "Wysoki", "Krytyczny"]); ?>
+                <?= formListBoxTitled("Kolumna", "column", "boardsEditTaskColumn"); ?>
                 <div id="boardsEditTaskDescription" class="formTextBox"></div>
             </div>
         </div>

@@ -312,6 +312,10 @@
     text-align: center;
 }
 
+.taskItemAvatar.unassigned {
+    background-color: #1f1f1f;
+}
+
 .taskButton {
     background: linear-gradient(#039BE5, #1E88E5);
     color: white;

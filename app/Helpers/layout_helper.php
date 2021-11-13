@@ -1,7 +1,7 @@
 <?php
 
-if(!function_exists('showPage')) {
-    function showPage($templateName, $data = [], $modals = [], $additionalScripts = [])
+if (!function_exists('showPage')) {
+    function showPage($templateName, $data = [], $modals = [], $additionalScripts = [], $script = "")
     {
         echo view("template", [
             "content" => view($templateName, $data),
@@ -9,7 +9,8 @@ if(!function_exists('showPage')) {
             "scripts" => $additionalScripts,
             "menu" => [],
             "buttons" => [],
-            "cacheClear" => rand(0,100) //TODO
+            "cacheClear" => rand(0, 999999999),
+            "script" => $script
         ]);
     }
 }

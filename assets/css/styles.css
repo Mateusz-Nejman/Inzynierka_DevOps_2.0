@@ -65,6 +65,16 @@ body {
     border-radius: 10px;
 }
 
+.modalContent {
+    width: 90%;
+    height: 80%;
+    display: none;
+    overflow-y: auto;
+    margin: 10% 5%;
+    background-color: white;
+    border-radius: 10px;
+}
+
 .modalWindowHeader {
     display: flex;
     flex-direction: row;
