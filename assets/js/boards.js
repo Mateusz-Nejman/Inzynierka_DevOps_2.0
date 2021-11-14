@@ -737,3 +737,45 @@ function newTaskOpened() {
 function editTaskOpened() {
   $("#boardsEditTaskAssignedTo").val(0);
 }
+
+const archiveOpen = () => {
+  $("#loading").show();
+
+  ajaxPost(
+    baseUrl + "/boards/getArchivedElements",
+    { empty: true },
+    (result) => {
+      $("#archiveItems").empty();
+
+      result.data.forEach((element) => {
+        const isBoard = element[0].includes("board");
+        const isColumn = element[0].includes("column");
+
+        const prefix = isBoard ? "Tablica" : isColumn ? "Kolumna" : "Zadanie";
+
+        $("#archiveItems").append(
+          '<div class="rowStatic"><span style="flex: 3">Usunięty element "' +
+            prefix +
+            '" o nazwie "' +
+            element[1] +
+            '"</span>' +
+            formButtonLink(
+              "Przywróć",
+              "*archiveRestore('" + element[0] + "')",
+              "baseButton"
+            ) +
+            "</div>"
+        );
+      });
+
+      openModal("boardsArchive");
+      $("#loading").hide();
+    }
+  );
+};
+
+const archiveRestore = (query) => {
+  ajaxPost(baseUrl + "/boards/archiveRestore", { query: query }, (result) => {
+    archiveOpen();
+  });
+};

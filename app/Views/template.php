@@ -33,6 +33,7 @@
                                     <?= formButtonLink('<i class="fas fa-users"></i>', '*boardsOpenUsers()', 'baseButton" id="boardsUsersButton'); ?>
                                     <?= formButtonLink('Tablice', '*boardsGotoHome()', 'baseButton'); ?>
                                 </div>
+                                <?= formButtonLink('Archiwum', '*archiveOpen()', 'baseButton mlAuto'); ?>
                                 <?= formButtonLink('Wyloguj się', '*logout()', 'baseButton mlAuto'); ?>
                             </div>
                         <?php endif; ?>

@@ -28,7 +28,8 @@ class Boards extends BaseController
 		return showPage("board_index", ["logged" => true], [
 			createModal("Nowe zadanie", "newTask", "board_new_task"),
 			createModal("Edytuj zadanie", "editTask", "board_edit_task"),
-			createModal("Użytkownicy", "boardUsers", "board_users")
+			createModal("Użytkownicy", "boardUsers", "board_users"),
+			createModal("Archiwum", "boardsArchive", "board_archive")
 		], ["boards.js"], $script);
 	}
 
@@ -807,6 +808,87 @@ class Boards extends BaseController
 		]);
 
 		return $this->response->setJSON(["state" => 0, "message" => "Pomyślnie zarchiwizowano"]);
+	}
+
+	public function getArchivedElements()
+	{
+		if (!$this->checkValidRequest($this->request)) {
+			return $this->getInvalidResponse($this->response);
+		}
+
+		$userData = getLoggedUserData();
+		$returnData = []; //
+
+		$userBoards = $this->db->table("userBoards")->where("userId", $userData->id)->get()->getResult();
+		$userBoardsIds = [];
+		$userBoardColumnsIds = [];
+
+		foreach ($userBoards as $userBoard) {
+			$userBoardsIds[] = $userBoard->id;
+		}
+
+		$boards = $this->db->table("boards")->whereIn("id", $userBoardsIds)->where("archive", 1)->get()->getResult();
+
+		foreach ($boards as $board) {
+			$returnData[] = ["board{$board->id}", $board->name];
+		}
+
+		$columns = $this->db->table("boardColumns")->whereIn("boardId", $userBoardsIds)->get()->getResult();
+
+		foreach ($columns as $column) {
+			$userBoardColumnsIds[] = $column->id;
+
+			if ($column->archive == 1) {
+				$returnData[] = ["column{$column->id}", $column->name];
+			}
+		}
+
+		$tasks = $this->db->table("boardItems")->whereIn("columnId", $userBoardColumnsIds)->where("archive", 1)->get()->getResult();
+
+		foreach ($tasks as $task) {
+			$returnData[] = ["task{$task->id}", $task->name];
+		}
+
+		return $this->response->setJSON(["data" => $returnData]);
+	}
+
+	public function archiveRestore()
+	{
+		if (!$this->checkValidRequest($this->request)) {
+			return $this->getInvalidResponse($this->response);
+		}
+
+		$query = $this->request->getVar("query");
+
+		$isColumn = strpos($query, "column") !== false;
+		$isBoard = strpos($query, "board") !== false;
+		$isTask = strpos($query, "task") !== false;
+
+		if ($isColumn) {
+			$id = intval(str_replace("column", "", $query));
+
+			$this->db->table("boardColumns")->where("id", $id)->update([
+				"archive" => 0
+			]);
+		}
+
+		if ($isBoard) {
+			$id = intval(str_replace("board", "", $query));
+
+			$this->db->table("boards")->where("id", $id)->update([
+				"archive" => 0
+			]);
+		}
+
+		if ($isTask) {
+			$id = intval(str_replace("task", "", $query));
+
+			$this->db->table("boardItems")->where("id", $id)->update([
+				"archive" => 0
+			]);
+		}
+
+		return $this->response->setJSON(["state" => 0, "message" => "Pomyślnie przywrócono"]);
 	}
 
 	private function changeColumnsOrderIds(array $ids)
