@@ -89,7 +89,7 @@
   -ms-grid-rows: 1fr 1fr 1fr 1fr 1fr;
       grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
   gap: 0px 0px;
-      grid-template-areas: ". . . ." ". . . ." ". . . ." ". . . ." ". . . .";
+      grid-template-areas: ". . . ." ". . . ." ". . . ." ". . . ." ". . . .";
 }
 
 .boardItem {
@@ -460,5 +460,45 @@
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
+}
+
+@media (max-width: 980px) {
+  .boardContainer {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+  }
+  .boardTopbar {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    height: auto;
+  }
+  .taskContainerBase {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+  }
+  .taskColumn {
+    width: 100%;
+  }
+  .boardGrid {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+  }
+  .boardItem, .boardItemNew {
+    width: calc(100% - 40px);
+  }
+  .boardItemTitle {
+    width: 100%;
+  }
 }
 /*# sourceMappingURL=board.css.map */

@@ -17,15 +17,6 @@ body {
     margin-top: 20px;
 }
 
-.row {
-    display:flex;
-    flex-direction: row;
-}
-
-.col {
-    width: 50%;
-}
-
 .col25 {
     width: 25%;
 }
