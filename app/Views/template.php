@@ -34,6 +34,7 @@
                                     <?= formButtonLink('Tablice', '*boardsGotoHome()', 'baseButton'); ?>
                                 </div>
                                 <?= formButtonLink('Archiwum', '*archiveOpen()', 'baseButton mlAuto'); ?>
+                                <?= formButtonLink('Zmiana hasła', '*passwordChangeOpen()', 'baseButton'); ?>
                                 <?= formButtonLink('Wyloguj się', '*logout()', 'baseButton mlAuto'); ?>
                             </div>
                         <?php endif; ?>
@@ -77,7 +78,7 @@
         <?php if (strpos($scriptPath, "http") === 0) : ?>
             <script src="<?= $scriptPath; ?>"></script>
         <?php else : ?>
-            <script src="/assets/js/<?= $scriptPath; ?>?v=<?= $cacheClear; ?>999999999"></script>
+            <script src="/assets/js/<?= $scriptPath; ?>?v=<?= $cacheClear; ?>1000"></script>
         <?php endif; ?>
     <?php endforeach; ?>
     <script>

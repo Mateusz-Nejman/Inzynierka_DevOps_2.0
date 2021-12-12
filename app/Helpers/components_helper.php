@@ -258,6 +258,23 @@ if (!function_exists('getCountries')) {
     }
 }
 
+if (!function_exists('formPasswordBox')) {
+    function formPasswordBox($title, $name, $id, $value = "", bool $disabled = false)
+    {
+        $control = '<input type="password" class="formTextBox" name="' . $name . '" autocomplete="current-password" required="" id="' . $id . '" placeholder="' . $title . '" value="' . $value . '">';
+        $control .= '<i class="far fa-eye" id="' . $id . 'eye" style="margin-left: -30px; cursor: pointer;"></i>';
+
+        return $control;
+    }
+}
+
+if (!function_exists('formPasswordBoxTitled')) {
+    function formPasswordBoxTitled($title, $name, $id, $value = "", bool $disabled = false)
+    {
+        return '<div class="formTextBoxTitled" id="' . $id . 'div"><span>' . $title . '</span>' . formPasswordBox($title, $name, $id, $value, $disabled) . '</div>';
+    }
+}
+
 if (!function_exists('formTextBox')) {
     function formTextBox($title, $name, $id, $value = "", $onChanging = "", $type = "text", bool $disabled = false)
     {

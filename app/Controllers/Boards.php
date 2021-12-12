@@ -13,6 +13,7 @@ class Boards extends BaseController
 	{
 		$this->db = \Config\Database::connect();
 		$this->loggedAccess();
+		helper("cookie");
 	}
 
 	public function index($link = "")
@@ -29,7 +30,8 @@ class Boards extends BaseController
 			createModal("Nowe zadanie", "newTask", "board_new_task"),
 			createModal("Edytuj zadanie", "editTask", "board_edit_task"),
 			createModal("Użytkownicy", "boardUsers", "board_users"),
-			createModal("Archiwum", "boardsArchive", "board_archive")
+			createModal("Archiwum", "boardsArchive", "board_archive"),
+			createModal("Zmiana hasła", "passwordChange", "board_change_password")
 		], ["boards.js"], $script);
 	}
 
@@ -889,6 +891,29 @@ class Boards extends BaseController
 		}
 
 		return $this->response->setJSON(["state" => 0, "message" => "Pomyślnie przywrócono"]);
+	}
+
+	public function changePassword()
+	{
+		if (!$this->checkValidRequest($this->request)) {
+			return $this->getInvalidResponse($this->response);
+		}
+
+		$userData = getLoggedUserData();
+		$password = $this->request->getVar("password");
+		$passwordRepeat = $this->request->getVar("passwordRepeat");
+
+		if ($password != $passwordRepeat || $password == "") {
+			return $this->response->setJSON(["state" => 2, "message" => "Nieprawidłowe hasło"]);
+		}
+
+		$this->db->table("users")->where("id", $userData->id)->update([
+			"password" => password_hash($password, PASSWORD_BCRYPT)
+		]);
+
+		set_cookie("devops20", $userData->id . "[DEV]" . password_hash($userData->email . "[DEV]" . $password, PASSWORD_DEFAULT), 2678400);
+
+		return $this->response->setJSON(["state" => 0, "message" => "Pomyślnie zmieniono"]);
 	}
 
 	private function changeColumnsOrderIds(array $ids)

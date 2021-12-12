@@ -375,3 +375,35 @@
     display: flex;
     flex-direction: column;
 }
+
+@media (max-width: 980px) {
+    .boardContainer {
+        flex-direction: column;
+    }
+
+    .boardTopbar {
+        flex-direction: column;
+        height: auto;
+    }
+
+    .taskContainerBase {
+        flex-direction: column;
+    }
+
+    .taskColumn {
+        width: 100%;
+    }
+
+    .boardGrid {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .boardItem, .boardItemNew {
+        width: calc(100% - 40px);
+    }
+
+    .boardItemTitle {
+        width: 100%;
+    }
+}

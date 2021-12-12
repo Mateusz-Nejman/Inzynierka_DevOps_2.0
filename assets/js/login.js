@@ -12,12 +12,6 @@ const loginSubmit = () => {
 const loginNewSubmit = () => {
     const email = $("#loginNewEmail").val();
     const password = $("#loginNewPassword").val();
-    const passwordRepeat = $("#loginNewPasswordRepeat").val();
-
-    if (password != passwordRepeat) {
-        showNotification(2, "Passwords don't match");
-        return;
-    }
 
     if (!validateEmail(email)) {
         showNotification(2, "Invalid email");
@@ -32,12 +26,4 @@ const loginNewSubmit = () => {
 const validateEmail = email => {
     const res = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     return res.test(String(email).toLowerCase());
-}
-
-const openUrl = url => {
-    const link = document.createElement('a');
-    link.href = url;
-    document.body.appendChild(link);
-    link.click();
-    link.remove();
 }

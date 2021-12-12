@@ -779,3 +779,22 @@ const archiveRestore = (query) => {
     archiveOpen();
   });
 };
+
+const passwordChangeOpen = () => {
+  $("#passwordChangePassword").val("");
+  $("#passwordChangePasswordRepeat").val("");
+  openModal("passwordChange");
+};
+
+const passwordChangeSubmit = () => {
+  const password = $("#passwordChangePassword").val();
+
+  console.log(password);
+  ajaxPost(
+    baseUrl + "/boards/changePassword",
+    { password: password, passwordRepeat: password },
+    (result) => {
+      closeModal("passwordChange");
+    }
+  );
+};

@@ -17,15 +17,6 @@ body {
     margin-top: 20px;
 }
 
-.row {
-    display:flex;
-    flex-direction: row;
-}
-
-.col {
-    width: 50%;
-}
-
 .col25 {
     width: 25%;
 }
@@ -298,4 +289,4 @@ body {
     background: #F0F0F0;
     border-radius: 0px;
     box-shadow: inset 0px 0px 0px 0px #F0F0F0;
-    }
+    }ś

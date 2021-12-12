@@ -9,7 +9,7 @@ if (!function_exists('showPage')) {
             "scripts" => $additionalScripts,
             "menu" => [],
             "buttons" => [],
-            "cacheClear" => rand(0, 1000),
+            "cacheClear" => rand(0, 2000),
             "script" => $script
         ]);
     }
