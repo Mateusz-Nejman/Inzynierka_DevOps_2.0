@@ -102,7 +102,7 @@ $containerColor: #1f1f1f;
 .formTextBoxTitled span {
     color: $colorThirdaryText;
     font-size: 12px;
-    padding: 15px 0 5px 0;
+    padding: 15px 8px 0 8px;
     display: block;
 }
 
@@ -304,8 +304,21 @@ input[type="radio"]:checked + label:before {
     z-index: 10;
 }
 
+.dropdownContentBottom {
+    display: none;
+    position: absolute;
+    left: 24px;
+    top: 64px;
+    background-color: $colorThirdary;
+    min-width: 250px;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    z-index: 10;
+}
+
+
 .dropdownContent.active,
-.dropdownContentMiddle.active {
+.dropdownContentMiddle.active,
+.dropdownContentBottom.active {
     display: block;
 }
 

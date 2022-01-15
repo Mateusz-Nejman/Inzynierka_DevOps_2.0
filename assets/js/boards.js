@@ -20,7 +20,7 @@ const boardsChangeTasksOrder = (columnId, ids) => {
       columnId: columnId,
       ids: ids,
     },
-    (result) => {}
+    (result) => { }
   );
 };
 
@@ -32,7 +32,7 @@ const boardsMoveTaskTo = (columnId, taskId, ids) => {
       taskId: taskId,
       ids: ids,
     },
-    (result) => {}
+    (result) => { }
   );
 };
 
@@ -79,16 +79,17 @@ const boardsCreateColumnItem = (data) => {
   const column = $("<div>", { id: "column" + data.id, class: "taskColumn" });
   column.append(
     '<div class="taskColumnName"><input type="text" value="' +
-      data.name +
-      '" onblur="boardsChangeColumnName(this)" ' +
-      (canInteract ? "" : "disabled") +
-      "/>" +
-      formButtonLink(
-        '<i class="fas fa-times"></i>',
-        "*boardsArchiveColumn(" + data.id + ")",
-        "transparentButtonLink mlAuto"
-      ) +
-      "</div>"
+    data.name +
+    '" onblur="boardsChangeColumnName(this)" ' +
+    (canInteract ? "" : "disabled") +
+    "/>" +
+    formButtonLink(
+      '<i class="fas fa-times"></i>',
+      "*boardsArchiveColumn(" + data.id + ")",
+      "transparentButtonLink mlAuto",
+      "Przejdź do zadania " + data.name
+    ) +
+    "</div>"
   );
 
   column.append(
@@ -124,18 +125,20 @@ const boardsCreateTaskItem = (data) => {
   task.append('<div class="taskItemName">' + data.name + "</div>");
   task.append(
     '<div class="taskItemContent">' +
-      formButtonLink(
-        '<i class="fas fa-edit"></i>',
-        "*boardsOpenEditTask(" + data.id + ")",
-        "transparentButtonLink"
-      ) +
-      formButtonLink(
-        '<i class="fas fa-share-square"></i>',
-        "*boardsCreateLink(" + data.id + ")",
-        "transparentButtonLink"
-      ) +
-      generateAvatarFromEmail(data.email) +
-      "</div>"
+    formButtonLink(
+      '<i class="fas fa-edit"></i>',
+      "*boardsOpenEditTask(" + data.id + ")",
+      "transparentButtonLink",
+      "Edytuj"
+    ) +
+    formButtonLink(
+      '<i class="fas fa-share-square"></i>',
+      "*boardsCreateLink(" + data.id + ")",
+      "transparentButtonLink",
+      "Kopiuj link do zadania"
+    ) +
+    generateAvatarFromEmail(data.email) +
+    "</div>"
   );
 
   return task;
@@ -148,7 +151,7 @@ const boardsChangeColumnsOrder = (boardId, ids) => {
       boardId: boardId,
       ids: ids,
     },
-    (result) => {}
+    (result) => { }
   );
 };
 
@@ -243,12 +246,15 @@ const boardsOpenEditTask = (id) => {
   boardsEditTaskEditor.deleteText(0, boardsEditTaskEditor.getLength());
   openModal(
     "editTask",
-    [["boardsEditTaskId", id], "boardsEditTaskName"],
+    [],
     "editTaskOpened"
   );
   $("#taskCommentList").empty();
+  $("#boardsEditTaskId").val(id);
+  $("#boardsEditTaskName").val("");
 
   ajaxPost(baseUrl + "/boards/getTask", { id: id }, (result) => {
+    console.log(result);
     $("#boardsEditTaskId").val(id);
     $("#boardsEditTaskName").val(result.data.name);
     $("#boardsEditTaskAssignedTo").val(result.data.assignedTo);
@@ -305,7 +311,7 @@ const boardsChangeColumnName = (handler) => {
   ajaxPost(
     baseUrl + "/boards/changeColumnName",
     { id: columnId, name: newName },
-    (result) => {}
+    (result) => { }
   );
 };
 
@@ -385,22 +391,23 @@ const boardsRefreshBoardsGrid = () => {
       $("#boardGrid").append(
         formButtonLink(
           '<h2 class="boardItemTitle">' +
-            item.name +
-            '</h2><span class="boardItemTasks"><i class="fas fa-tasks"></i> ' +
-            item.taskCount +
-            "</span>",
+          item.name +
+          '</h2><span class="boardItemTasks"><i class="fas fa-tasks"></i> ' +
+          item.taskCount +
+          "</span>",
           "*boardsGotoBoard(" + item.id + ")",
-          "boardItem jsTilt"
+          "boardItem jsTilt",
+          "Przejdź do tablicy"
         )
       );
       $("#sidebarList").append(
         '<li class="navItem">' +
-          formButtonLink(
-            item.name,
-            "*boardsGotoBoard(" + item.id + ")",
-            'navLink" id="navItem' + item.id
-          ) +
-          "</li>"
+        formButtonLink(
+          item.name,
+          "*boardsGotoBoard(" + item.id + ")",
+          'navLink" id="navItem' + item.id
+        ) +
+        "</li>"
       );
     });
 
@@ -416,7 +423,8 @@ const boardsCreateNewBoardItem = () => {
     formButtonLink(
       '<i class="fas fa-plus"></i> Nowa tablica',
       "*boardsShowNewBoard(true)",
-      'transparentButtonLink newBoardInactive" id="boardsNewBoardInactive'
+      'transparentButtonLink newBoardInactive" id="boardsNewBoardInactive',
+      "Nowa tablica"
     ) +
     '<div class="newBoardActive" id="boardsNewBoardActive">' +
     formTextBox("Nazwa tablicy", "boardName", "boardNewBoardName") +
@@ -424,12 +432,14 @@ const boardsCreateNewBoardItem = () => {
     formButtonLink(
       '<i class="fas fa-check"></i>',
       "*boardsNewBoardSubmit()",
-      "transparentButtonLink greenColor"
+      "transparentButtonLink greenColor",
+      "Zapisz"
     ) +
     formButtonLink(
       '<i class="fas fa-times"></i>',
       "*boardsShowNewBoard(false)",
-      "transparentButtonLink"
+      "transparentButtonLink",
+      "Anuluj"
     ) +
     "</div></div></div>"
   );
@@ -593,29 +603,31 @@ const boardsRefreshBoardUsers = () => {
       result.data.forEach((user) => {
         $("#boardsUserRoleTable").append(
           "<tr>" +
-            '<td style="display: none">' +
-            user.id +
-            '</td><td style="display: none">' +
-            user.role +
-            "</td>" +
-            "<td>" +
-            user.email +
-            "</td>" +
-            "<td>" +
-            formButtonLink(
-              '<i class="fas fa-edit"></i>',
-              "*boardsEditUser(this)",
-              "transparentButtonLink"
-            ) +
-            "</td>" +
-            "<td>" +
-            formButtonLink(
-              '<i class="fas fa-trash"></i>',
-              "*boardsRemoveUserSubmit(" + user.id + ")",
-              "transparentButtonLink"
-            ) +
-            "</td>" +
-            "</tr>"
+          '<td style="display: none">' +
+          user.id +
+          '</td><td style="display: none">' +
+          user.role +
+          "</td>" +
+          "<td>" +
+          user.email +
+          "</td>" +
+          "<td>" +
+          formButtonLink(
+            '<i class="fas fa-edit"></i>',
+            "*boardsEditUser(this)",
+            "transparentButtonLink",
+            "Edytuj"
+          ) +
+          "</td>" +
+          "<td>" +
+          formButtonLink(
+            '<i class="fas fa-trash"></i>',
+            "*boardsRemoveUserSubmit(" + user.id + ")",
+            "transparentButtonLink",
+            "Archiwizuj"
+          ) +
+          "</td>" +
+          "</tr>"
         );
       });
     }
@@ -672,15 +684,15 @@ const boardsCreateCommentItem = (data) => {
   const content = $("<div>", { class: "taskCommentContent" });
   content.append(
     '<h3 class="taskCommentTitle">' +
-      data.email +
-      '<span class="taskCommentDate">' +
-      data.date +
-      "</span></h3>"
+    data.email +
+    '<span class="taskCommentDate">' +
+    data.date +
+    "</span></h3>"
   );
   content.append(
     '<div class="taskCommentContentInner">' +
-      quillGetHTML(data.content) +
-      "</div>"
+    quillGetHTML(data.content) +
+    "</div>"
   );
 
   item.append(content);
@@ -723,8 +735,8 @@ const logout = () => {
 const boardsCreateLink = (id) => {
   navigator.clipboard.writeText(
     baseUrl +
-      "/boards/index/" +
-      encodeURI(Base64.encode(JSON.stringify({ taskId: id })))
+    "/boards/index/" +
+    encodeURI(Base64.encode(JSON.stringify({ taskId: id })))
   );
 
   showNotification(0, "Link skopiowano do schowka");
@@ -755,16 +767,16 @@ const archiveOpen = () => {
 
         $("#archiveItems").append(
           '<div class="rowStatic"><span style="flex: 3">Usunięty element "' +
-            prefix +
-            '" o nazwie "' +
-            element[1] +
-            '"</span>' +
-            formButtonLink(
-              "Przywróć",
-              "*archiveRestore('" + element[0] + "')",
-              "baseButton"
-            ) +
-            "</div>"
+          prefix +
+          '" o nazwie "' +
+          element[1] +
+          '"</span>' +
+          formButtonLink(
+            "Przywróć",
+            "*archiveRestore('" + element[0] + "')",
+            "baseButton"
+          ) +
+          "</div>"
         );
       });
 

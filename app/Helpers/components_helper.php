@@ -274,20 +274,19 @@ if (!function_exists('formPasswordBoxTitled')) {
         return '<div class="formTextBoxTitled" id="' . $id . 'div"><span>' . $title . '</span>' . formPasswordBox($title, $name, $id, $value, $disabled) . '</div>';
     }
 }
-
 if (!function_exists('formTextBox')) {
-    function formTextBox($title, $name, $id, $value = "", $onChanging = "", $type = "text", bool $disabled = false)
+    function formTextBox($title, $name, $id, $value = "", $onChanging = "", $type = "text", bool $disabled = false, $onEnter = "")
     {
         $onChangingText = $onChanging == "" ? "" : 'oninput = "' . $onChanging . '"';
         $disabledText = $disabled ? "disabled" : "";
-        return '<input type="' . $type . '" class="formTextBox" id="' . $id . '" name="' . $name . '" placeholder="' . $title . '" value="' . $value . '" ' . $onChangingText . " " . $disabledText . '/>';
+        return '<input type="' . $type . '" class="formTextBox" id="' . $id . '" name="' . $name . '" placeholder="' . $title . '" value="' . $value . '" onkeypress="componentsOnEnter(event,\'' . $onEnter . '\')" ' . $onChangingText . " " . $disabledText . '/>';
     }
 }
 
 if (!function_exists('formTextBoxTitled')) {
-    function formTextBoxTitled($title, $name, $id, $value = "", $onChanging = "", $type = "text", bool $disabled = false)
+    function formTextBoxTitled($title, $name, $id, $value = "", $onChanging = "", $type = "text", bool $disabled = false, $onEnter = "")
     {
-        return '<div class="formTextBoxTitled" id="' . $id . 'div"><span>' . $title . '</span>' . formTextBox($title, $name, $id, $value, $onChanging, $type, $disabled) . '</div>';
+        return '<div class="formTextBoxTitled" id="' . $id . 'div"><span>' . $title . '</span>' . formTextBox($title, $name, $id, $value, $onChanging, $type, $disabled, $onEnter) . '</div>';
     }
 }
 
@@ -346,11 +345,11 @@ if (!function_exists('formListBoxTitled')) {
 }
 
 if (!function_exists('formDropdownButton')) {
-    function formDropdownButton($icon, $id, $menuItems = [], $additionalContent = "", bool $middle = false, $smallerIcon = false)
+    function formDropdownButton($icon, $id, $menuItems = [], $additionalContent = "", bool $middle = false, $smallerIcon = false, $bottom = false, $notIcon = false)
     { //[["title" => "", "link" => ""]]
         $control = '<div class="dropdown">';
-        $control .= '<button type="button" class="' . ($smallerIcon ? 'transparent baseLink' : 'topbarButtonSmaller dropdownButton') . '" onclick="openDropdown(\'' . $id . '\')"><i class="' . $icon . '"></i></button>';
-        $control .= '<div id="' . $id . '" class="dropdownContent' . ($middle ? "Middle" : "") . '">';
+        $control .= '<button type="button" class="' . ($smallerIcon ? 'transparent baseLink' : 'topbarButtonSmaller dropdownButton') . '" onclick="openDropdown(\'' . $id . '\')">' . ($notIcon ? $icon : '<i class="' . $icon . '"></i>') . '</button>';
+        $control .= '<div id="' . $id . '" class="dropdownContent' . ($middle ? "Middle" : ($bottom ? "Bottom" : "")) . '">';
         $control .= $additionalContent;
 
         foreach ($menuItems as $menuItem) {
@@ -364,15 +363,15 @@ if (!function_exists('formDropdownButton')) {
 }
 
 if (!function_exists('formButtonLink')) {
-    function formButtonLink($title, $link, $className = "")
+    function formButtonLink($text, $link, $className = "", $title = "")
     {
         $isButton = substr($link, 0, 1) == "*";
         $linkSource = $isButton ? 'onclick="' . substr($link, 1) . '"' : 'href="' . $link . '"';
 
         if ($isButton)
-            return '<button type="button" class="' . $className . '" ' . $linkSource . '>' . $title . '</button>';
+            return '<button type="button" class="' . $className . '" ' . $linkSource . ' title="' . $title . '">' . $text . '</button>';
         else
-            return '<a class="' . $className . '" ' . $linkSource . '>' . $title . '</a>';
+            return '<a class="' . $className . '" ' . $linkSource . ' title="' . $title . '">' . $text . '</a>';
     }
 }
 
@@ -414,7 +413,7 @@ if (!function_exists('formListBoxValuable')) {
     {
         $container = '<div class="formGroup">';
 
-        $listBox = '<select class="formListBox" name="' . $name . '" id="flbvs' . $id . '">';
+        $listBox = '<label class="formListBox"><select class="formListBox" name="' . $name . '" id="flbvs' . $id . '">';
 
         $listBox .= '<option value="-1" selected>' . $defaultText . '</option>';
 
@@ -422,7 +421,7 @@ if (!function_exists('formListBoxValuable')) {
             $listBox .= '<option value="' . $index . '">' . $item . '</option>';
         }
 
-        $listBox .= '</select>';
+        $listBox .= '</select><svg viewbox="0 0 10 6"><polyline points="1 1 5 5 9 1"></polyline></svg></label>';
 
         $firstLayer = '<div class="row"><div class="col75">' . $listBox . '</div><div class="col25">' . formButtonLink('<i class="fas fa-plus"></i>', "*" . $jsMethod . "('" . $id . "')", "baseButton margin0 height100") . '</div></div>';
         $secondLayer = '<div id="flbvc' . $id . '"></div>';

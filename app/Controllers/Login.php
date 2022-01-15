@@ -71,7 +71,7 @@ class Login extends BaseController
         $permissions = ['email'];
         // For more permissions like user location etc you need to send your application for review
 
-        $loginUrl = $helper->getLoginUrl('http://localhost:8001/login/facebookCallback', $permissions);
+        $loginUrl = $helper->getLoginUrl('https://apsl.mateusz-nejman.pl/login/facebookCallback', $permissions);
         header("Location:{$loginUrl}");
         exit();
     }

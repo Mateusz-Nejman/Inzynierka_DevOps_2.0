@@ -1,10 +1,8 @@
-/*$colorPrimary: #202225;
-$colorSecondary: #2f3136;
-$colorThirdary: white;
-$colorPrimaryText: white;
-$colorSecondaryText: #2f3136;
-$colorDisabledText: #dee2e6;
-$basicBorder: #dee2e6;*/
+/*
+NeyoLab UI library
+Author: Mateusz Nejman
+https://neyolab.com
+*/
 
 $colorPrimary: #9a0000;
 $colorSecondary: #f0f0f0;
@@ -20,6 +18,16 @@ $notificationColor: white;
 $contrastColor: #2d2d2a;
 $baseColor: #4c4c47;
 $baseTextColor: white;
+
+$sidebarBackground: white;
+$sidebarColor: #1f1f1f;
+$sidebarColorSecond: #1E88E5;
+
+$mainBackground: whitesmoke;
+$mainColor: #1f1f1f;
+
+$containerBackground: white;
+$containerColor: #1f1f1f;
 
 @keyframes spin {
     from {
@@ -47,7 +55,7 @@ h5 {
 }
 
 h6 {
-    color: $colorThirdaryText;
+    color: $mainColor;
     font-size: 1.25rem;
     margin: auto 15px;
 }
@@ -160,8 +168,10 @@ body {
     background-color: #f1f1f4;
     display: flex;
     flex-direction: row;
+    justify-content: space-between;
     padding: 10px;
     align-items: center;
+    border: solid 1px #1f1f1f;
 }
 
 .notificationContent {
@@ -182,7 +192,16 @@ body {
 
 .notificationIcon {
     margin: 0;
-    width: 50px;
+    width: 40px;
+    height: 50px;
+    padding: 10px;
+    font-size: 28px;
+    color: black;
+}
+
+.notificationButton {
+    margin: 0;
+    width: 40px;
     height: 50px;
     padding: 10px;
     font-size: 28px;
@@ -192,12 +211,14 @@ body {
 .notificationText {
     color: black;
     font-size: 12px;
+    min-width: 90px;
 }
 
 .baseLink {
     color: $colorThirdaryText;
     text-decoration: none;
     font-size: 16px;
+    text-align: center;
 }
 
 .baseLink:hover {
@@ -247,84 +268,22 @@ body {
     font-size: 20px;
 }
 
-.baseButton {
-    background: linear-gradient(#039BE5, #1E88E5);
-    color: white;
-    border: 1px solid transparent;
-    font-size: 0.75rem;
-    margin: 8px;
-    padding: 10px 16px;
-    text-decoration: none;
-    font-weight: 400;
-    font-family: "Roboto", sans-serif;
-    line-height: 1.2;
-    border-radius: 6px;
-    text-align: center;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.baseButton:hover {
-    background-color: transparent;
-    color: $baseColor;
-    border: 1px solid $baseColor;
-    transition: all 0.3s;
-    cursor: pointer;
-}
-
-.baseButton.link {
-    background-color: transparent;
-    color: $baseColor;
-}
-
-.baseButton.link:hover,
-.baseButton.link.alert:hover {
-    color: black;
-    border: 1px solid transparent;
-}
-
-.baseButton.link.alert {
-    color: #d50000;
-}
-
-.baseButtonM0 {
-    background-color: $baseColor;
-    color: $baseTextColor;
-    border: 1px solid transparent;
-    font-size: 0.75rem;
-    margin: 0 8px 8px 8px;
-    padding: 6px;
-    text-decoration: none;
-    font-weight: 400;
-    font-family: "Roboto", sans-serif;
-    line-height: 1.2;
-    border-radius: 2px;
-    text-align: center;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 40px;
-}
-
-.baseButtonM0:hover {
-    background-color: transparent;
-    color: $baseColor;
-    border: 1px solid $baseColor;
-    transition: all 0.3s;
-    cursor: pointer;
-}
-
 .contentTitle {
-    color: $colorThirdaryText;
+    color: $containerColor;
     font-size: 1.5rem;
-    margin: auto 15px;
+    margin-bottom: 15px;
 }
 
 .baseControl {
-    padding: 10px;
-    background-color: $colorThirdary;
+    margin: 20px 0;
+    padding: 30px;
+    background-color: $containerBackground;
     border-radius: 8px;
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+}
+
+.baseControl.baseControlModal {
+    box-shadow: none;
 }
 
 .editorContainer {
@@ -333,9 +292,20 @@ body {
 }
 
 // DATATABLES TEMPLATE
+
+td, th {
+    border: none;
+    border-bottom: 1px solid $containerColor;
+}
+
 table.table-bordered.dataTable th,
 table.table-bordered.dataTable td {
-    border-color: $contrastColor;
+    border: none;
+}
+
+table.table-bordered.dataTable tr {
+    border: none;
+    border-bottom: 1px solid $containerColor;
 }
 
 div.responsiveTable {
@@ -439,6 +409,7 @@ div.responsiveTable {
     height: 100%;
     display: none;
     overflow-y: auto;
+    border-radius: 10px;
 }
 
 .modalSmallerContent {
@@ -448,12 +419,15 @@ div.responsiveTable {
     overflow-y: auto;
     margin: 10% 25%;
     background-color: $colorThirdary;
+    border-radius: 10px;
 }
 
 .modalWindowHeader {
     display: flex;
     flex-direction: row;
-    height: 34px;
+    height: 64px;
+    margin: 0 0 0 20px;
+    border-bottom: 1px solid $basicBorder;
 }
 
 .modalWindowButton {
@@ -490,89 +464,6 @@ div.responsiveTable {
 }
 
 //END OF MODAL PROTOTYPE
-
-.baseButtonLink {
-    background-color: transparent;
-    color: $colorThirdaryText;
-    border: 1px solid transparent;
-    font-size: 1rem;
-    padding: 10px 20px;
-    text-decoration: none;
-    font-weight: 400;
-    font-family: "Roboto", sans-serif;
-    line-height: 1.5;
-    display: block;
-    text-align: left;
-}
-
-.baseButtonLinkSmaller {
-    background-color: transparent;
-    color: $colorThirdaryText;
-    border: 1px solid transparent;
-    font-size: 1rem;
-    padding: 5px 20px;
-    text-decoration: none;
-    font-weight: 400;
-    font-family: "Roboto", sans-serif;
-    line-height: 1.5;
-    display: block;
-    text-align: left;
-}
-
-.baseButtonLink:hover,
-.baseButtonLinkSmaller:hover {
-    background-color: #00000020;
-}
-
-.dropdownButton {
-    cursor: pointer;
-    background-color: transparent;
-    color: $contrastColor;
-    border: 1px solid transparent;
-    width: 28px;
-    height: 48px;
-    font-size: 1.25rem;
-    margin: 8px;
-}
-
-.dropdown {
-    position: relative;
-    display: inline-block;
-}
-
-.dropdownContent {
-    display: none;
-    position: absolute;
-    right: 24px;
-    top: 40px;
-    background-color: $colorThirdary;
-    min-width: 250px;
-    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
-    z-index: 10;
-}
-
-.dropdownContentMiddle {
-    display: none;
-    position: absolute;
-    right: 24px;
-    top: -140px;
-    background-color: $colorThirdary;
-    min-width: 250px;
-    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
-    z-index: 10;
-}
-
-.dropdownContent.active,
-.dropdownContentMiddle.active {
-    display: block;
-}
-
-.colorBlock {
-    width: 32px;
-    height: 32px;
-}
-
-//End of controls
 //Datapicker
 .ui-datepicker {
     background-color: $colorThirdary;
@@ -666,66 +557,6 @@ div.responsiveTable {
 }
 
 //End of datapicker
-
-@media (max-width: 980px) {
-    .row {
-        flex-direction: column;
-    }
-    .col {
-        width: 100%;
-    }
-
-    .dropdownButtons {
-        display: flex;
-        align-items: center;
-    }
-    .searchBox {
-        width: auto;
-    }
-    .formTextBox {
-        min-width: 64px;
-    }
-    .modalWindowHeader {
-        flex-direction: column;
-        height: auto;
-        margin: 0 20px;
-    }
-    .modalSmallerContent {
-        width: 100%;
-        height: 100%;
-        margin: 0;
-    }
-    .modalBackground.opened {
-        padding: 0;
-    }
-    .taskContainerBase {
-        flex-direction: column;
-    }
-
-    .baseControl.table {
-        overflow-x: scroll;
-        display: block;
-        width: 100%;
-    }
-
-    .mlAuto.modalHeaderButtons {
-        margin-left: 0;
-    }
-
-    .modalHeaderButtons {
-        flex-direction: column;
-    }
-
-    .editorContainer {
-        flex: 1;
-        display: flex;
-        flex-direction: column;
-        overflow-y: auto;
-        height: 500px;
-        margin: 8px;
-    }
-}
-
 .containerScroller {
     overflow: hidden;
 }
@@ -735,9 +566,8 @@ div.responsiveTable {
     background-color: #e7e7ea;
 }
 
-.navbarBrand {
+.sidebarBrand {
     width: 300px;
-    background-color: #f1f1f4;
     height: 64px;
     display: flex;
 }
@@ -751,7 +581,7 @@ div.responsiveTable {
     flex-direction: row;
 }
 
-.navbarLogo {
+.sidebarLogo {
     width: 170px;
     max-width: 170px;
     margin: auto;
@@ -772,8 +602,8 @@ div.responsiveTable {
 }
 
 .contentContainer {
-    min-height: 200vh;
-    background-color: whitesmoke;
+    min-height: 110vh;
+    background-color: $mainBackground;
     display: flex;
     flex-direction: row;
 }
@@ -781,7 +611,7 @@ div.responsiveTable {
 .sidebar {
     width: 300px;
     z-index: 11;
-    background-color: #f1f1f4;
+    background-color: $sidebarBackground;
     min-height: calc(100vh-64px);
     padding-bottom: 50px;
 }
@@ -799,12 +629,11 @@ div.responsiveTable {
 }
 
 .navCategory {
-    color: rgba(0, 0, 0, 0.7);
-    border-bottom: 1px solid rgba(0, 0, 0, 0.13);
+    color: $sidebarColor;
     margin: 0 30px;
-    font-size: 15px;
+    font-size: 10px;
     font-weight: 500;
-    padding: 10px 0 15px 0;
+    padding: 15px 0 5px 0;
 }
 
 .navLink,
@@ -815,11 +644,32 @@ div.responsiveTable {
     height: 52px;
     align-items: center;
     display: flex;
+    justify-content: space-between;
     padding: 15px 30px 15px 30px;
     white-space: nowrap;
-    color: black;
+    color: $sidebarColor;
     text-decoration: none;
     border: none;
+    width: 100%;
+    cursor: pointer;
+}
+
+.navLinkAvatar {
+    background-color: transparent;
+    transition: padding 0.3s;
+    position: relative;
+    height: 64px;
+    align-items: center;
+    display: flex;
+    padding: 15px 30px 15px 0;
+    white-space: nowrap;
+    color: $sidebarColor;
+    text-decoration: none;
+}
+
+.navLinkAvatar .taskItemAvatar {
+    margin-right: 10px;
+    margin-left: 0;
 }
 
 .navTitle {
@@ -832,66 +682,51 @@ div.responsiveTable {
 
 .navLink:hover .navTitle,
 .navLink.active .navTitle {
-    padding-left: 10px;
+    color: $sidebarColorSecond;
+}
+
+.navLink:hover .navIcon, .navLink.active .navIcon {
+    color: $sidebarColorSecond;
 }
 
 .navIcon {
     font-size: 15px;
-    color: black;
-    margin-right: 20px;
+    color: $sidebarColor;
+    margin-left: 20px;
+}
+
+.containerMenu {
+    padding: 1.5rem;
+    width: calc(100vw - 300px);
 }
 
 .container {
     padding: 1.5rem;
-    width: 100%;
+    width: 100vw;
 }
 
 .containerTopbar {
     display: flex;
     width: 100%;
-    flex-direction: column;
+    flex-direction: row;
+    justify-content: space-between;
 }
 
 .containerTitle {
     font-weight: 400;
     font-size: 20px;
-    padding-bottom: 10px;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.13);
+    color: $mainColor;
 }
 
 .containerButtons {
     display: flex;
     flex-direction: row;
     padding: 10px;
-    justify-content: space-between;
-    height: 76px;
+    width: 100%;
 }
 
 .content {
     min-height: 100px;
-}
-
-@media (max-width: 980px) {
-    .contentContainer {
-        flex-direction: column;
-    }
-
-    .sidebar {
-        width: 100vw;
-    }
-
-    .navbarContent {
-        box-shadow: none;
-        background-color: #f1f1f4;
-    }
-
-    .container {
-        width: 100vw;
-    }
-
-    .navbar {
-        box-shadow: 0 4px 16px 0 rgba(167, 175, 183, 0.33);
-    }
 }
 
 .indicatorItem {
@@ -944,7 +779,7 @@ div.responsiveTable {
 }
 
 .ql-container {
-    height: calc(100% - 42px);
+    height: calc(100% - 42px) !important;
 }
 
 //
@@ -967,34 +802,6 @@ div.responsiveTable {
 
 .transparentButtonLink:hover {
     background-color: #00000020;
-}
-
-@keyframes spinner {
-    0% {
-        transform: translate3d(-50%, -50%, 0) rotate(0deg);
-    }
-    100% {
-        transform: translate3d(-50%, -50%, 0) rotate(360deg);
-    }
-}
-.spin::before {
-    animation: 1.5s linear infinite spinner;
-    animation-play-state: inherit;
-    border: solid 5px transparent;
-    border-bottom-color: white;
-    border-radius: 50%;
-    content: "";
-    height: 40px;
-    width: 40px;
-    position: fixed;
-    top: calc(50%-20px);
-    left: calc(50%-20px);
-    transform: translate3d(-50%, -50%, 0);
-    will-change: transform;
-}
-
-.loadingScreen {
-    background-color: #9e9e9e;
 }
 
 .modalLoading {
@@ -1040,12 +847,38 @@ div.responsiveTable {
 }
 
 @media (max-width: 980px) {
-    .containerTopbar, .containerButtons {
-        height: auto;
+    .containerTopbar {
+        border-bottom: solid 1px #1f1f1f;
         flex-direction: column;
     }
 
-    .baseButton.mlAuto {
-        margin-left: 8px !important;
+    .contentContainer {
+        flex-direction: column;
+    }
+
+    .sidebar {
+        width: 100%;
+    }
+
+    .container {
+        width: 100%;
+    }
+
+    .row {
+        flex-direction: column;
+    }
+
+    .col {
+        width: 100%;
+    }
+
+    .containerButtons {
+        flex-direction: column;
+    }
+
+    .modalSmallerContent {
+        width: 100%;
+        height: 100%;
+        margin: 0;
     }
 }

@@ -1,4 +1,4 @@
-<div class="baseControl">
+<div class="baseControl baseControlModal">
     <div class="row">
         <div class="col2">
             <div class="formGroup">
@@ -12,7 +12,7 @@
         </div>
     </div>
     <div class="row">
-        <?= formButtonLink("Edytuj zadanie", "*boardsEditTaskSubmit()", 'baseButton" id="boardsEditTaskButton'); ?>
+        <?= formButtonLink("Zapisz", "*boardsEditTaskSubmit()", 'baseButton" id="boardsEditTaskButton'); ?>
         <?= formButtonLink("Archiwizuj", "*boardsEditTaskArchiveSubmit()", 'baseButton" id="boardsEditTaskArchive'); ?>
     </div>
     <div class="row mt20">

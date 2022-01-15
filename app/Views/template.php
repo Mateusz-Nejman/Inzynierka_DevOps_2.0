@@ -5,11 +5,10 @@
     <link rel="icon" href="/public/favicon.ico" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <link rel="stylesheet" href="/assets/css/template/styles.css?v=<?= $cacheClear; ?>">
     <link rel="stylesheet" href="/assets/css/fontAwesome.min.css">
-    <link rel="stylesheet" href="/assets/css/styles.css?v=<?= $cacheClear; ?>2">
-    <link rel="stylesheet" href="/assets/css/board.css?v=<?= $cacheClear; ?>1">
-    <link rel="stylesheet" href="/assets/css/components.css?v=<?= $cacheClear; ?>">
+    <link rel="stylesheet" href="/assets/css/neyolabUI.css?v=<?= $cacheClear; ?>">
+    <link rel="stylesheet" href="/assets/css/neyolabUI.Components.css?v=<?= $cacheClear; ?>">
+    <link rel="stylesheet" href="/assets/css/neyolabUI.Board.css?v=<?= $cacheClear; ?>">
     <link rel="stylesheet" href="/assets/css/quill.snow.css?v=<?= $cacheClear; ?>">
     <link rel="stylesheet" href="/assets/css/newDatatables.css">
     <link rel="stylesheet" href="/assets/css/highlight.min.css">
@@ -24,18 +23,18 @@
                         <?php if ($logged) : ?>
                             <?= formBegin(); ?>
                             <div class="boardName">
-                                <input type="text" id="boardName" value="Title" onblur="boardsChangeBoardName()" style="display: none" />
+                                <input type="text" id="boardName" value="Title" onblur="boardsChangeBoardName()" style="display: none; width:auto" />
                             </div>
                             <?= formEnd(); ?>
-                            <div class="row">
+                            <div class="row mlAuto">
                                 <div class="row" id="boardButtons" style="display: none">
-                                    <?= formButtonLink('<i class="fas fa-trash"></i>', '*boardsArchiveBoard()', 'baseButton" id="boardsArchiveButton'); ?>
-                                    <?= formButtonLink('<i class="fas fa-users"></i>', '*boardsOpenUsers()', 'baseButton" id="boardsUsersButton'); ?>
-                                    <?= formButtonLink('Tablice', '*boardsGotoHome()', 'baseButton'); ?>
+                                    <?= formButtonLink('<i class="fas fa-trash"></i>', '*boardsArchiveBoard()', 'baseButton" id="boardsArchiveButton', "Tablice"); ?>
+                                    <?= formButtonLink('<i class="fas fa-users"></i>', '*boardsOpenUsers()', 'baseButton" id="boardsUsersButton', "Użytkownicy"); ?>
+                                    <?= formButtonLink('<i class="fas fa-table"></i>', '*boardsGotoHome()', 'baseButton', "Tablice"); ?>
                                 </div>
-                                <?= formButtonLink('Archiwum', '*archiveOpen()', 'baseButton mlAuto'); ?>
-                                <?= formButtonLink('Zmiana hasła', '*passwordChangeOpen()', 'baseButton'); ?>
-                                <?= formButtonLink('Wyloguj się', '*logout()', 'baseButton mlAuto'); ?>
+                                <?= formButtonLink('<i class="fas fa-archive"></i>', '*archiveOpen()', 'baseButton mlAuto', "Archiwum"); ?>
+                                <?= formButtonLink('<i class="fas fa-key"></i>', '*passwordChangeOpen()', 'baseButton', "Zmiana hasła"); ?>
+                                <?= formButtonLink('<i class="fas fa-door-open"></i>', '*logout()', 'baseButton mlAuto', "Wyloguj się"); ?>
                             </div>
                         <?php endif; ?>
                     </div>
@@ -45,10 +44,10 @@
         </div>
     </div>
     <?php foreach ($modals as $modal) : ?>
-        <div class="modalBackground" id="<?= $modal["name"]; ?>">
-            <div class="modalContent">
+        <div class="modalBackground modalBottomRight" id="<?= $modal["name"]; ?>">
+            <div class="modalSmallerContent">
                 <div class="modalWindowHeader">
-                    <div class="modalWindowTitle mrAuto"></div>
+                    <div class="modalWindowTitle mrAuto"><h5><?= $modal["title"]; ?></h5></div>
                     <div class="mlAuto"><button type="button" class="baseButton" id="modalClose<?= $modal["name"]; ?>"><i class="fas fa-times"></i></button></div>
                 </div>
                 <?= $modal["content"]; ?>
@@ -70,7 +69,7 @@
     <script src="/assets/js/tilt.js"></script>
     <script src="/assets/js/highlight.min.js"></script>
     <script src="/assets/js/quill.min.js"></script>
-    <script src="/assets/js/components.js?v=<?= $cacheClear; ?>"></script>
+    <script src="/assets/js/neyolabUI.Components.js?v=<?= $cacheClear; ?>"></script>
     <script src="/assets/js/moment.js"></script>
     <script src="/assets/js/base.js?v=<?= $cacheClear; ?>"></script>
     <script src="/assets/js/utils.js"></script>
@@ -78,7 +77,7 @@
         <?php if (strpos($scriptPath, "http") === 0) : ?>
             <script src="<?= $scriptPath; ?>"></script>
         <?php else : ?>
-            <script src="/assets/js/<?= $scriptPath; ?>?v=<?= $cacheClear; ?>1000"></script>
+            <script src="/assets/js/<?= $scriptPath; ?>?v=<?= $cacheClear; ?>1001"></script>
         <?php endif; ?>
     <?php endforeach; ?>
     <script>

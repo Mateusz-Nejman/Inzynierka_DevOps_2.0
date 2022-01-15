@@ -1,4 +1,4 @@
-<div class="baseControl">
+<div class="baseControl baseControlModal">
     <div class="row">
         <div class="col">
             <div class="formGroup" id="boardsUserAddSection">

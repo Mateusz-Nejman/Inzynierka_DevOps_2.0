@@ -1,10 +1,8 @@
-/*$colorPrimary: #202225;
-$colorSecondary: #2f3136;
-$colorThirdary: white;
-$colorPrimaryText: white;
-$colorSecondaryText: #2f3136;
-$colorDisabledText: #dee2e6;
-$basicBorder: #dee2e6;*/
+/*
+NeyoLab UI library
+Author: Mateusz Nejman
+https://neyolab.com
+*/
 @-webkit-keyframes spin {
   from {
     -webkit-transform: rotate(0);
@@ -44,7 +42,7 @@ h5 {
 }
 
 h6 {
-  color: black;
+  color: #1f1f1f;
   font-size: 1.25rem;
   margin: auto 15px;
 }
@@ -178,10 +176,14 @@ body {
   -webkit-box-direction: normal;
       -ms-flex-direction: row;
           flex-direction: row;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
   padding: 10px;
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+  border: solid 1px #1f1f1f;
 }
 
 .notificationContent {
@@ -207,7 +209,16 @@ body {
 
 .notificationIcon {
   margin: 0;
-  width: 50px;
+  width: 40px;
+  height: 50px;
+  padding: 10px;
+  font-size: 28px;
+  color: black;
+}
+
+.notificationButton {
+  margin: 0;
+  width: 40px;
   height: 50px;
   padding: 10px;
   font-size: 28px;
@@ -217,12 +228,14 @@ body {
 .notificationText {
   color: black;
   font-size: 12px;
+  min-width: 90px;
 }
 
 .baseLink {
   color: black;
   text-decoration: none;
   font-size: 16px;
+  text-align: center;
 }
 
 .baseLink:hover {
@@ -272,99 +285,24 @@ body {
   font-size: 20px;
 }
 
-.baseButton {
-  background: -webkit-gradient(linear, left top, left bottom, from(#039BE5), to(#1E88E5));
-  background: linear-gradient(#039BE5, #1E88E5);
-  color: white;
-  border: 1px solid transparent;
-  font-size: 0.75rem;
-  margin: 8px;
-  padding: 10px 16px;
-  text-decoration: none;
-  font-weight: 400;
-  font-family: "Roboto", sans-serif;
-  line-height: 1.2;
-  border-radius: 6px;
-  text-align: center;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-}
-
-.baseButton:hover {
-  background-color: transparent;
-  color: #4c4c47;
-  border: 1px solid #4c4c47;
-  -webkit-transition: all 0.3s;
-  transition: all 0.3s;
-  cursor: pointer;
-}
-
-.baseButton.link {
-  background-color: transparent;
-  color: #4c4c47;
-}
-
-.baseButton.link:hover,
-.baseButton.link.alert:hover {
-  color: black;
-  border: 1px solid transparent;
-}
-
-.baseButton.link.alert {
-  color: #d50000;
-}
-
-.baseButtonM0 {
-  background-color: #4c4c47;
-  color: white;
-  border: 1px solid transparent;
-  font-size: 0.75rem;
-  margin: 0 8px 8px 8px;
-  padding: 6px;
-  text-decoration: none;
-  font-weight: 400;
-  font-family: "Roboto", sans-serif;
-  line-height: 1.2;
-  border-radius: 2px;
-  text-align: center;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  height: 40px;
-}
-
-.baseButtonM0:hover {
-  background-color: transparent;
-  color: #4c4c47;
-  border: 1px solid #4c4c47;
-  -webkit-transition: all 0.3s;
-  transition: all 0.3s;
-  cursor: pointer;
-}
-
 .contentTitle {
-  color: black;
+  color: #1f1f1f;
   font-size: 1.5rem;
-  margin: auto 15px;
+  margin-bottom: 15px;
 }
 
 .baseControl {
-  padding: 10px;
+  margin: 20px 0;
+  padding: 30px;
   background-color: white;
   border-radius: 8px;
+  -webkit-box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+          box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+}
+
+.baseControl.baseControlModal {
+  -webkit-box-shadow: none;
+          box-shadow: none;
 }
 
 .editorContainer {
@@ -372,9 +310,19 @@ body {
   margin: 8px;
 }
 
+td, th {
+  border: none;
+  border-bottom: 1px solid #1f1f1f;
+}
+
 table.table-bordered.dataTable th,
 table.table-bordered.dataTable td {
-  border-color: #2d2d2a;
+  border: none;
+}
+
+table.table-bordered.dataTable tr {
+  border: none;
+  border-bottom: 1px solid #1f1f1f;
 }
 
 div.responsiveTable {
@@ -481,6 +429,7 @@ div.responsiveTable {
   height: 100%;
   display: none;
   overflow-y: auto;
+  border-radius: 10px;
 }
 
 .modalSmallerContent {
@@ -490,6 +439,7 @@ div.responsiveTable {
   overflow-y: auto;
   margin: 10% 25%;
   background-color: white;
+  border-radius: 10px;
 }
 
 .modalWindowHeader {
@@ -500,7 +450,9 @@ div.responsiveTable {
   -webkit-box-direction: normal;
       -ms-flex-direction: row;
           flex-direction: row;
-  height: 34px;
+  height: 64px;
+  margin: 0 0 0 20px;
+  border-bottom: 1px solid #dee2e6;
 }
 
 .modalWindowButton {
@@ -539,89 +491,6 @@ div.responsiveTable {
   -webkit-box-direction: normal;
       -ms-flex-direction: row;
           flex-direction: row;
-}
-
-.baseButtonLink {
-  background-color: transparent;
-  color: black;
-  border: 1px solid transparent;
-  font-size: 1rem;
-  padding: 10px 20px;
-  text-decoration: none;
-  font-weight: 400;
-  font-family: "Roboto", sans-serif;
-  line-height: 1.5;
-  display: block;
-  text-align: left;
-}
-
-.baseButtonLinkSmaller {
-  background-color: transparent;
-  color: black;
-  border: 1px solid transparent;
-  font-size: 1rem;
-  padding: 5px 20px;
-  text-decoration: none;
-  font-weight: 400;
-  font-family: "Roboto", sans-serif;
-  line-height: 1.5;
-  display: block;
-  text-align: left;
-}
-
-.baseButtonLink:hover,
-.baseButtonLinkSmaller:hover {
-  background-color: #00000020;
-}
-
-.dropdownButton {
-  cursor: pointer;
-  background-color: transparent;
-  color: #2d2d2a;
-  border: 1px solid transparent;
-  width: 28px;
-  height: 48px;
-  font-size: 1.25rem;
-  margin: 8px;
-}
-
-.dropdown {
-  position: relative;
-  display: inline-block;
-}
-
-.dropdownContent {
-  display: none;
-  position: absolute;
-  right: 24px;
-  top: 40px;
-  background-color: white;
-  min-width: 250px;
-  -webkit-box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
-          box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
-  z-index: 10;
-}
-
-.dropdownContentMiddle {
-  display: none;
-  position: absolute;
-  right: 24px;
-  top: -140px;
-  background-color: white;
-  min-width: 250px;
-  -webkit-box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
-          box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
-  z-index: 10;
-}
-
-.dropdownContent.active,
-.dropdownContentMiddle.active {
-  display: block;
-}
-
-.colorBlock {
-  width: 32px;
-  height: 32px;
 }
 
 .ui-datepicker {
@@ -715,83 +584,6 @@ div.responsiveTable {
   content: "\f0a8";
 }
 
-@media (max-width: 980px) {
-  .row {
-    -webkit-box-orient: vertical;
-    -webkit-box-direction: normal;
-        -ms-flex-direction: column;
-            flex-direction: column;
-  }
-  .col {
-    width: 100%;
-  }
-  .dropdownButtons {
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-box-align: center;
-        -ms-flex-align: center;
-            align-items: center;
-  }
-  .searchBox {
-    width: auto;
-  }
-  .formTextBox {
-    min-width: 64px;
-  }
-  .modalWindowHeader {
-    -webkit-box-orient: vertical;
-    -webkit-box-direction: normal;
-        -ms-flex-direction: column;
-            flex-direction: column;
-    height: auto;
-    margin: 0 20px;
-  }
-  .modalSmallerContent {
-    width: 100%;
-    height: 100%;
-    margin: 0;
-  }
-  .modalBackground.opened {
-    padding: 0;
-  }
-  .taskContainerBase {
-    -webkit-box-orient: vertical;
-    -webkit-box-direction: normal;
-        -ms-flex-direction: column;
-            flex-direction: column;
-  }
-  .baseControl.table {
-    overflow-x: scroll;
-    display: block;
-    width: 100%;
-  }
-  .mlAuto.modalHeaderButtons {
-    margin-left: 0;
-  }
-  .modalHeaderButtons {
-    -webkit-box-orient: vertical;
-    -webkit-box-direction: normal;
-        -ms-flex-direction: column;
-            flex-direction: column;
-  }
-  .editorContainer {
-    -webkit-box-flex: 1;
-        -ms-flex: 1;
-            flex: 1;
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-box-orient: vertical;
-    -webkit-box-direction: normal;
-        -ms-flex-direction: column;
-            flex-direction: column;
-    overflow-y: auto;
-    height: 500px;
-    margin: 8px;
-  }
-}
-
 .containerScroller {
   overflow: hidden;
 }
@@ -801,9 +593,8 @@ div.responsiveTable {
   background-color: #e7e7ea;
 }
 
-.navbarBrand {
+.sidebarBrand {
   width: 300px;
-  background-color: #f1f1f4;
   height: 64px;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -825,7 +616,7 @@ div.responsiveTable {
           flex-direction: row;
 }
 
-.navbarLogo {
+.sidebarLogo {
   width: 170px;
   max-width: 170px;
   margin: auto;
@@ -851,7 +642,7 @@ div.responsiveTable {
 }
 
 .contentContainer {
-  min-height: 200vh;
+  min-height: 110vh;
   background-color: whitesmoke;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -865,7 +656,7 @@ div.responsiveTable {
 .sidebar {
   width: 300px;
   z-index: 11;
-  background-color: #f1f1f4;
+  background-color: white;
   min-height: calc(100vh-64px);
   padding-bottom: 50px;
 }
@@ -888,12 +679,11 @@ div.responsiveTable {
 }
 
 .navCategory {
-  color: rgba(0, 0, 0, 0.7);
-  border-bottom: 1px solid rgba(0, 0, 0, 0.13);
+  color: #1f1f1f;
   margin: 0 30px;
-  font-size: 15px;
+  font-size: 10px;
   font-weight: 500;
-  padding: 10px 0 15px 0;
+  padding: 15px 0 5px 0;
 }
 
 .navLink,
@@ -909,11 +699,39 @@ div.responsiveTable {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
   padding: 15px 30px 15px 30px;
   white-space: nowrap;
-  color: black;
+  color: #1f1f1f;
   text-decoration: none;
   border: none;
+  width: 100%;
+  cursor: pointer;
+}
+
+.navLinkAvatar {
+  background-color: transparent;
+  -webkit-transition: padding 0.3s;
+  transition: padding 0.3s;
+  position: relative;
+  height: 64px;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  padding: 15px 30px 15px 0;
+  white-space: nowrap;
+  color: #1f1f1f;
+  text-decoration: none;
+}
+
+.navLinkAvatar .taskItemAvatar {
+  margin-right: 10px;
+  margin-left: 0;
 }
 
 .navTitle {
@@ -927,18 +745,27 @@ div.responsiveTable {
 
 .navLink:hover .navTitle,
 .navLink.active .navTitle {
-  padding-left: 10px;
+  color: #1E88E5;
+}
+
+.navLink:hover .navIcon, .navLink.active .navIcon {
+  color: #1E88E5;
 }
 
 .navIcon {
   font-size: 15px;
-  color: black;
-  margin-right: 20px;
+  color: #1f1f1f;
+  margin-left: 20px;
+}
+
+.containerMenu {
+  padding: 1.5rem;
+  width: calc(100vw - 300px);
 }
 
 .container {
   padding: 1.5rem;
-  width: 100%;
+  width: 100vw;
 }
 
 .containerTopbar {
@@ -946,17 +773,19 @@ div.responsiveTable {
   display: -ms-flexbox;
   display: flex;
   width: 100%;
-  -webkit-box-orient: vertical;
+  -webkit-box-orient: horizontal;
   -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
 }
 
 .containerTitle {
   font-weight: 400;
   font-size: 20px;
-  padding-bottom: 10px;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.13);
+  color: #1f1f1f;
 }
 
 .containerButtons {
@@ -968,38 +797,11 @@ div.responsiveTable {
       -ms-flex-direction: row;
           flex-direction: row;
   padding: 10px;
-  -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
-  height: 76px;
+  width: 100%;
 }
 
 .content {
   min-height: 100px;
-}
-
-@media (max-width: 980px) {
-  .contentContainer {
-    -webkit-box-orient: vertical;
-    -webkit-box-direction: normal;
-        -ms-flex-direction: column;
-            flex-direction: column;
-  }
-  .sidebar {
-    width: 100vw;
-  }
-  .navbarContent {
-    -webkit-box-shadow: none;
-            box-shadow: none;
-    background-color: #f1f1f4;
-  }
-  .container {
-    width: 100vw;
-  }
-  .navbar {
-    -webkit-box-shadow: 0 4px 16px 0 rgba(167, 175, 183, 0.33);
-            box-shadow: 0 4px 16px 0 rgba(167, 175, 183, 0.33);
-  }
 }
 
 .indicatorItem {
@@ -1073,7 +875,7 @@ div.responsiveTable {
 }
 
 .ql-container {
-  height: calc(100% - 42px);
+  height: calc(100% - 42px) !important;
 }
 
 .transparentButtonLink {
@@ -1092,51 +894,6 @@ div.responsiveTable {
 
 .transparentButtonLink:hover {
   background-color: #00000020;
-}
-
-@-webkit-keyframes spinner {
-  0% {
-    -webkit-transform: translate3d(-50%, -50%, 0) rotate(0deg);
-            transform: translate3d(-50%, -50%, 0) rotate(0deg);
-  }
-  100% {
-    -webkit-transform: translate3d(-50%, -50%, 0) rotate(360deg);
-            transform: translate3d(-50%, -50%, 0) rotate(360deg);
-  }
-}
-
-@keyframes spinner {
-  0% {
-    -webkit-transform: translate3d(-50%, -50%, 0) rotate(0deg);
-            transform: translate3d(-50%, -50%, 0) rotate(0deg);
-  }
-  100% {
-    -webkit-transform: translate3d(-50%, -50%, 0) rotate(360deg);
-            transform: translate3d(-50%, -50%, 0) rotate(360deg);
-  }
-}
-
-.spin::before {
-  -webkit-animation: 1.5s linear infinite spinner;
-          animation: 1.5s linear infinite spinner;
-  -webkit-animation-play-state: inherit;
-          animation-play-state: inherit;
-  border: solid 5px transparent;
-  border-bottom-color: white;
-  border-radius: 50%;
-  content: "";
-  height: 40px;
-  width: 40px;
-  position: fixed;
-  top: calc(50%-20px);
-  left: calc(50%-20px);
-  -webkit-transform: translate3d(-50%, -50%, 0);
-          transform: translate3d(-50%, -50%, 0);
-  will-change: transform;
-}
-
-.loadingScreen {
-  background-color: #9e9e9e;
 }
 
 .modalLoading {
@@ -1205,15 +962,44 @@ div.responsiveTable {
 }
 
 @media (max-width: 980px) {
-  .containerTopbar, .containerButtons {
-    height: auto;
+  .containerTopbar {
+    border-bottom: solid 1px #1f1f1f;
     -webkit-box-orient: vertical;
     -webkit-box-direction: normal;
         -ms-flex-direction: column;
             flex-direction: column;
   }
-  .baseButton.mlAuto {
-    margin-left: 8px !important;
+  .contentContainer {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+  }
+  .sidebar {
+    width: 100%;
+  }
+  .container {
+    width: 100%;
+  }
+  .row {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+  }
+  .col {
+    width: 100%;
+  }
+  .containerButtons {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+  }
+  .modalSmallerContent {
+    width: 100%;
+    height: 100%;
+    margin: 0;
   }
 }
-/*# sourceMappingURL=styles.css.map */
+/*# sourceMappingURL=neyolabUI.css.map */

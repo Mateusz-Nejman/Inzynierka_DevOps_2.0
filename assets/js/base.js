@@ -19,6 +19,7 @@ function openModal(modalName, elementsToClear = [], opened = "") {
       }
     });
 
+    $("#" + modalName).scrollTop(0);
     console.log("Opened function " + opened + " " + modalName);
     if (opened.length > 0) {
       var fn = window[opened];
@@ -30,6 +31,9 @@ function openModal(modalName, elementsToClear = [], opened = "") {
       }
     }
     $("#" + modalName + " .modalContent").css("display", "block");
+    $("#" + modalName + " .modalContent").scrollTop(0);
+    $('#' + modalName + ' .modalSmallerContent').css('display', 'block');
+    $("#" + modalName + " .modalSmallerContent").scrollTop(0);
     $("body").css("overflow-y", "hidden");
   });
 }
