@@ -18,7 +18,7 @@
     <div class="containerScroller">
         <div class="contentContainer">
             <div class="container">
-                <div class="containerTopbar">
+                <div class="containerTopbar clearBorder">
                     <div class="containerButtons">
                         <?php if ($logged) : ?>
                             <?= formBegin(); ?>
@@ -26,8 +26,8 @@
                                 <input type="text" id="boardName" value="Title" onblur="boardsChangeBoardName()" style="display: none; width:auto" />
                             </div>
                             <?= formEnd(); ?>
-                            <div class="row mlAuto">
-                                <div class="row" id="boardButtons" style="display: none">
+                            <div class="rowStatic mlAutoDesktop mrCenterMobile">
+                                <div class="rowStatic" id="boardButtons" style="display: none">
                                     <?= formButtonLink('<i class="fas fa-trash"></i>', '*boardsArchiveBoard()', 'baseButton" id="boardsArchiveButton', "Tablice"); ?>
                                     <?= formButtonLink('<i class="fas fa-users"></i>', '*boardsOpenUsers()', 'baseButton" id="boardsUsersButton', "Użytkownicy"); ?>
                                     <?= formButtonLink('<i class="fas fa-table"></i>', '*boardsGotoHome()', 'baseButton', "Tablice"); ?>

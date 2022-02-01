@@ -69,6 +69,10 @@ body {
     margin-left: auto;
 }
 
+.mlAutoDesktop {
+    margin-left: auto;
+}
+
 .mrAuto {
     margin-right: auto;
 }
@@ -846,10 +850,18 @@ div.responsiveTable {
     background-color: white;
 }
 
+.clearBorder {
+    border: none;
+}
+
 @media (max-width: 980px) {
     .containerTopbar {
         border-bottom: solid 1px #1f1f1f;
         flex-direction: column;
+    }
+
+    .clearBorder {
+        border: none;
     }
 
     .contentContainer {
@@ -862,6 +874,7 @@ div.responsiveTable {
 
     .container {
         width: 100%;
+        padding: 0;
     }
 
     .row {
@@ -870,6 +883,15 @@ div.responsiveTable {
 
     .col {
         width: 100%;
+    }
+
+    .mlAutoDesktop {
+        margin-left: 0;
+    }
+
+    .mrCenterMobile {
+        margin-left: auto;
+        margin-right: auto;
     }
 
     .containerButtons {

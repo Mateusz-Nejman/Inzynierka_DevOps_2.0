@@ -826,7 +826,7 @@ class Boards extends BaseController
 		$userBoardColumnsIds = [];
 
 		foreach ($userBoards as $userBoard) {
-			$userBoardsIds[] = $userBoard->id;
+			$userBoardsIds[] = $userBoard->boardId;
 		}
 
 		$boards = $this->db->table("boards")->whereIn("id", $userBoardsIds)->where("archive", 1)->get()->getResult();
