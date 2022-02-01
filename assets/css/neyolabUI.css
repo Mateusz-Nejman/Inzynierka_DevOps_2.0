@@ -505,6 +505,23 @@ div.responsiveTable {
           flex-direction: row;
 }
 
+.modalSection {
+  width: 100%;
+}
+
+.row .modalSection:not(:first-child) {
+  margin-top: 30px;
+}
+
+.modalSection .contentTitle {
+  padding-top: 30px;
+  margin-bottom: 0;
+}
+
+.modalSection .formGroup {
+  padding-top: 10px !important;
+}
+
 .ui-datepicker {
   background-color: white;
   color: black;

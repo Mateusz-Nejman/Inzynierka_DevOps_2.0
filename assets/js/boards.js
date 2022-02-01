@@ -684,10 +684,10 @@ const boardsCreateCommentItem = (data) => {
   const content = $("<div>", { class: "taskCommentContent" });
   content.append(
     '<h3 class="taskCommentTitle">' +
-    data.email +
     '<span class="taskCommentDate">' +
     data.date +
-    "</span></h3>"
+    "</span>&nbsp;" +
+    data.email + "</h3>"
   );
   content.append(
     '<div class="taskCommentContentInner">' +

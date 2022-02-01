@@ -1,6 +1,6 @@
 <div class="baseControl baseControlModal">
     <div class="row">
-        <div class="col2">
+        <div class="modalSection">
             <div class="formGroup">
                 <input type="hidden" id="boardsEditTaskId" />
                 <?= formTextBoxTitled("Nazwa", "name", "boardsEditTaskName"); ?>
@@ -16,7 +16,7 @@
         <?= formButtonLink("Archiwizuj", "*boardsEditTaskArchiveSubmit()", 'baseButton" id="boardsEditTaskArchive'); ?>
     </div>
     <div class="row mt20">
-        <div class="col2">
+        <div class="modalSection">
             <h2 class="contentTitle">Nowy komentarz</h2>
             <div class="formGroup">
                 <div class="formTextBox" id="boardsEditTaskNewComment"></div>
