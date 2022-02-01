@@ -116,6 +116,10 @@ $containerColor: #1f1f1f;
     font-size: 1rem;
 }
 
+.formTextBoxTitled .formTextBox {
+    margin-top: 2px;
+}
+
 .formCheckbox {
     display: none;
 }
@@ -210,6 +214,10 @@ input[type="radio"]:checked + label:before {
     margin: 8px;
 }
 
+.formTextBoxTitled .formListBox select {
+    margin-top: 2px;
+}
+
 .formListBox svg {
     position: absolute;
     right: 0; 
@@ -280,6 +288,7 @@ input[type="radio"]:checked + label:before {
 .dropdown {
     position: relative;
     display: inline-block;
+    width: max-content;
 }
 
 .dropdownContent {
@@ -308,7 +317,7 @@ input[type="radio"]:checked + label:before {
     display: none;
     position: absolute;
     left: 24px;
-    top: 64px;
+    top: 32px;
     background-color: $colorThirdary;
     min-width: 250px;
     box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
@@ -325,4 +334,36 @@ input[type="radio"]:checked + label:before {
 .colorBlock {
     width: 32px;
     height: 32px;
+}
+
+.sign {
+    background-color: #1f1f1f;
+    color: white;
+    font-size: 16px;
+    border-radius: 4px;
+    width: max-content;
+    padding: 2px;
+    border: none;
+    margin: 1px;
+    cursor: pointer;
+}
+
+.sign.orange.active {
+    background-color: #FB8C00;
+}
+
+.sign.blue.active {
+    background-color: #1E88E5;
+}
+
+.sign.green.active {
+    background-color: #7CB342;
+}
+
+.sign.red.active {
+    background-color: #F4511E;
+}
+
+.sign.brown.active {
+    background-color: #6D4C41;
 }

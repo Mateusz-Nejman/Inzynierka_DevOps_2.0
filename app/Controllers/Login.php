@@ -18,7 +18,7 @@ class Login extends BaseController
 
     public function index()
     {
-        return showPage("login", ["logged" => false], [], ["login.js"]);
+        echo view("login");
     }
 
     public function login()

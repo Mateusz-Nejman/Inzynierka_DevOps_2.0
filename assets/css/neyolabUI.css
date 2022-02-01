@@ -81,7 +81,7 @@ body {
 }
 
 .row,
-.rowStatic {
+.rowStatic, .flexCenter {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -91,8 +91,14 @@ body {
           flex-direction: row;
 }
 
+.flexCenter {
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
 .col {
-  padding: 20px;
+  padding: 0 20px;
   width: 50%;
 }
 
@@ -307,6 +313,8 @@ body {
 .baseControl.baseControlModal {
   -webkit-box-shadow: none;
           box-shadow: none;
+  padding-top: 0 !important;
+  margin-top: 10px !important;
 }
 
 .editorContainer {
@@ -480,7 +488,7 @@ div.responsiveTable {
 }
 
 .modalWindowContent {
-  padding: 20px;
+  padding: 0 20px;
 }
 
 .modalHelperInfo {
