@@ -757,7 +757,6 @@ const archiveOpen = () => {
     baseUrl + "/boards/getArchivedElements",
     { empty: true },
     (result) => {
-      console.log(result);
       $("#archiveItems").empty();
 
       result.data.forEach((element) => {
