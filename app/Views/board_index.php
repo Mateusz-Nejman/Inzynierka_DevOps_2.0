@@ -12,7 +12,7 @@
                 <?= formButtonLink('<i class="fas fa-plus"></i> Nowa kolumna', '*boardsShowNewColumn(true)', 'transparentButtonLink newColumnInactive" id="boardNewColumnInactive'); ?>
                 <div class="newColumnActive" id="boardNewColumnActive">
                     <input type="hidden" id="boardNewColumnBoardId" />
-                    <?= formTextBox("Nazwa kolumny", "columnName", "boardNewColumnName"); ?>
+                    <?= formTextBox("Nazwa kolumny", "columnName", "boardNewColumnName", "", "", "text", false, "boardsCreateColumnSubmit"); ?>
                     <div class="row" style="justify-content: center">
                         <?= formButtonLink('<i class="fas fa-check"></i>', "*boardsCreateColumnSubmit()", "transparentButtonLink greenColor"); ?>
                         <?= formButtonLink('<i class="fas fa-times"></i>', '*boardsShowNewColumn(false)', 'transparentButtonLink'); ?>

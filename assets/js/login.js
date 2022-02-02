@@ -1,4 +1,4 @@
-const loginSubmit = () => {
+function loginSubmit() {
     console.log("loginSubmit");
     const email = $("#loginEmail").val();
     const password = $("#loginPassword").val();
@@ -9,7 +9,7 @@ const loginSubmit = () => {
     });
 }
 
-const loginNewSubmit = () => {
+function loginNewSubmit() {
     const email = $("#loginNewEmail").val();
     const password = $("#loginNewPassword").val();
 

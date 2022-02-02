@@ -259,9 +259,9 @@ if (!function_exists('getCountries')) {
 }
 
 if (!function_exists('formPasswordBox')) {
-    function formPasswordBox($title, $name, $id, $value = "", bool $disabled = false)
+    function formPasswordBox($title, $name, $id, $value = "", bool $disabled = false, $onEnter = "")
     {
-        $control = '<input type="password" class="formTextBox" name="' . $name . '" autocomplete="current-password" required="" id="' . $id . '" placeholder="' . $title . '" value="' . $value . '">';
+        $control = '<input type="password" class="formTextBox" name="' . $name . '" autocomplete="current-password" required="" id="' . $id . '" onkeypress="componentsOnEnter(event,\'' . $onEnter . '\')" placeholder="' . $title . '" value="' . $value . '">';
         $control .= '<i class="far fa-eye" id="' . $id . 'eye" style="margin-left: -30px; cursor: pointer;"></i>';
 
         return $control;
@@ -269,9 +269,9 @@ if (!function_exists('formPasswordBox')) {
 }
 
 if (!function_exists('formPasswordBoxTitled')) {
-    function formPasswordBoxTitled($title, $name, $id, $value = "", bool $disabled = false)
+    function formPasswordBoxTitled($title, $name, $id, $value = "", bool $disabled = false, $onEnter = "")
     {
-        return '<div class="formTextBoxTitled" id="' . $id . 'div"><span>' . $title . '</span>' . formPasswordBox($title, $name, $id, $value, $disabled) . '</div>';
+        return '<div class="formTextBoxTitled" id="' . $id . 'div"><span>' . $title . '</span>' . formPasswordBox($title, $name, $id, $value, $disabled, $onEnter) . '</div>';
     }
 }
 if (!function_exists('formTextBox')) {

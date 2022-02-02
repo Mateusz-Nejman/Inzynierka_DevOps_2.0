@@ -1,7 +1,7 @@
 <html>
 
 <head>
-    <title>DevOps Board 2.0</title>
+    <title>Evaluation Board</title>
     <link rel="icon" href="/public/favicon.ico" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 

@@ -155,7 +155,7 @@ const boardsChangeColumnsOrder = (boardId, ids) => {
   );
 };
 
-const boardsCreateColumnSubmit = () => {
+function boardsCreateColumnSubmit() {
   const boardId = $("#boardNewColumnBoardId").val();
   const name = $("#boardNewColumnName").val();
 
