@@ -95,7 +95,7 @@
 .boardItem {
   background: -webkit-gradient(linear, left top, left bottom, from(#039BE5), to(#1E88E5));
   background: linear-gradient(#039BE5, #1E88E5);
-  width: 200px;
+  min-width: 200px;
   height: 120px;
   margin: 20px;
   padding: 10px;

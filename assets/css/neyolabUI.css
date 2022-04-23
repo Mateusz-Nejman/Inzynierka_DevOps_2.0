@@ -449,7 +449,7 @@ div.responsiveTable {
   height: 80%;
   display: none;
   overflow-y: auto;
-  margin: 10% 25%;
+  margin: 5% 25%;
   background-color: white;
   border-radius: 10px;
 }
@@ -520,6 +520,7 @@ div.responsiveTable {
 
 .modalSection .formGroup {
   padding-top: 10px !important;
+  padding-bottom: 0px !important;
 }
 
 .ui-datepicker {

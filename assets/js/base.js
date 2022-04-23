@@ -74,6 +74,7 @@ function openAndFillModal(modalName, elementsToClear = [], opened = "", id) {
 
 function closeModal(name) {
   $("#" + name).removeClass("opened");
+  $("body").css("overflow-y", "auto");
 }
 
 function hasClass(element, classNames) {

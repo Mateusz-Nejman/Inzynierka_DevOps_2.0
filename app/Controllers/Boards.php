@@ -565,7 +565,11 @@ class Boards extends BaseController
 				$columnIds[] = $column->id;
 			}
 
-			$boardItems = $this->db->table("boardItems")->whereIn("columnId", $columnIds)->where("archive", 0)->get()->getResult();
+			$boardItems = [];
+
+			if (count($columnIds) > 0) {
+				$boardItems = $this->db->table("boardItems")->whereIn("columnId", $columnIds)->where("archive", 0)->get()->getResult();
+			}
 
 			$board->taskCount = count($boardItems);
 		}
@@ -774,12 +778,12 @@ class Boards extends BaseController
 		$date = $this->request->getVar("date");
 		$userData = getLoggedUserData();
 
-		if ($id == 0 || strlen(trim($content)) == 0 || strlen(trim($date)) == 0) {
-			return $this->response->setJSON(["state" => 0, "message" => "Błąd serwera. Kod #BS022"]);
+		if ($id == 0 || strlen(trim($content)) == 0 || strlen(trim($date)) == 0 || $content == '{"ops":[{"insert":"\n"}]}') {
+			return $this->response->setJSON(["state" => 2, "message" => "Pusty komentarz"]);
 		}
 
 		if (!$this->hasUserAccessToTask($userData->id, $id, true)) {
-			return $this->response->setJSON(["state" => 0, "message" => "Brak dostępu"]);
+			return $this->response->setJSON(["state" => 2, "message" => "Brak dostępu"]);
 		}
 
 		$this->db->table("boardItemComments")->insert(["itemId" => $id, "createdBy" => $userData->id, "date" => $date, "content" => $content]);

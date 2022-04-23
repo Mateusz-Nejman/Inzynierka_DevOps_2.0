@@ -14,7 +14,7 @@
     <link rel="stylesheet" href="/assets/css/highlight.min.css">
 </head>
 
-<body>
+<body style="overflow-x: hidden">
     <div class="containerScroller">
         <div class="contentContainer">
             <div class="container">
@@ -45,7 +45,7 @@
     </div>
     <?php foreach ($modals as $modal) : ?>
         <div class="modalBackground modalBottomRight" id="<?= $modal["name"]; ?>">
-            <div class="modalSmallerContent">
+            <div class="modalSmallerContent" id="<?= $modal["name"]; ?>SmallerContent">
                 <div class="modalWindowHeader">
                     <div class="modalWindowTitle mrAuto"><h5><?= $modal["title"]; ?></h5></div>
                     <div class="mlAuto"><button type="button" class="baseButton" id="modalClose<?= $modal["name"]; ?>"><i class="fas fa-times"></i></button></div>

@@ -195,6 +195,11 @@ const boardsCreateTaskSubmit = () => {
   const priority = $("#boardsNewTaskPriority").val();
   const description = JSON.stringify(boardsNewTaskEditor.getContents());
 
+  if(!boardsTaskSubmitValidate())
+  {
+    return;
+  }
+
   ajaxPost(
     baseUrl + "/boards/createTask",
     {
@@ -223,6 +228,11 @@ const boardsEditTaskSubmit = () => {
   const description = JSON.stringify(boardsEditTaskEditor.getContents());
   const column = $("#boardsEditTaskColumn").val();
   console.log(column);
+
+  if(!boardsTaskSubmitValidate("Edit"))
+  {
+    return;
+  }
 
   ajaxPost(
     baseUrl + "/boards/editTask",
@@ -315,7 +325,7 @@ const boardsChangeColumnName = (handler) => {
   );
 };
 
-const boardsNewBoardSubmit = () => {
+function boardsNewBoardSubmit() {
   const boardName = $("#boardNewBoardName").val();
   $("#loading").show();
 
@@ -427,7 +437,7 @@ const boardsCreateNewBoardItem = () => {
       "Nowa tablica"
     ) +
     '<div class="newBoardActive" id="boardsNewBoardActive">' +
-    formTextBox("Nazwa tablicy", "boardName", "boardNewBoardName") +
+    formTextBox("Nazwa tablicy", "boardName", "boardNewBoardName", "", "", "", false, "boardsNewBoardSubmit") +
     '<div class="row" style="justify-content: center">' +
     formButtonLink(
       '<i class="fas fa-check"></i>',
@@ -810,3 +820,24 @@ const passwordChangeSubmit = () => {
     }
   );
 };
+
+function boardsTaskSubmitValidate(mode = "New") {
+  const inputElement = $("#boards" + mode + "TaskName");
+
+  if (inputElement.val() == "") {
+    setInvalid("boards" + mode + "TaskName");
+    $("#"+mode.toLowerCase()+"TaskSmallerContent").scrollTop(0);
+    return false;
+  }
+
+  unsetInvalid("boards" + mode + "TaskName");
+  return true;
+}
+
+function setInvalid(id) {
+  $("#" + id).addClass("formBoxInvalid");
+}
+
+function unsetInvalid(id) {
+  $("#" + id).removeClass("formBoxInvalid");
+}
