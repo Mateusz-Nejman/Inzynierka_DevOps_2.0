@@ -121,7 +121,7 @@
   font-size: 1.5rem;
   color: white;
   overflow: hidden;
-  width: inherit;
+  width: 100%;
   white-space: nowrap;
   margin-bottom: auto;
   text-overflow: ellipsis;
