@@ -23,6 +23,6 @@
     </div>
 
     <div class="fullScreenInfo loadingScreen" id="loading">
-        <div class="spin"></div>
+        <div class="spinner-box"></div>
     </div>
 </div>

@@ -290,10 +290,6 @@ const boardsOpenEditTask = (id) => {
 const boardsEditTaskArchiveSubmit = () => {
   const id = $("#boardsEditTaskId").val();
 
-  if (!confirm("Czy na pewno chcesz usunąć zadanie?")) {
-    return;
-  }
-
   ajaxPost(baseUrl + "/boards/archiveTask", { id: id }, (result) => {
     $("#task" + id).remove();
     boardsRefreshBoardsGrid();
@@ -302,10 +298,6 @@ const boardsEditTaskArchiveSubmit = () => {
 };
 
 const boardsArchiveColumn = (id) => {
-  if (!confirm("Czy na pewno chcesz usunąć kolumnę?")) {
-    return;
-  }
-
   ajaxPost(baseUrl + "/boards/archiveColumn", { id: id }, (result) => {
     $("#column" + id).remove();
     boardsRefreshBoardsGrid();
@@ -543,10 +535,6 @@ const boardsAddUserSubmit = () => {
 const boardsRemoveUserSubmit = (id) => {
   const userId = id;
 
-  if (!confirm("Na pewno chcesz usunąć użytkownika?")) {
-    return;
-  }
-
   ajaxPost(
     baseUrl + "/boards/removeUserFromBoard",
     { id: currentBoard, userId: userId },
@@ -726,10 +714,6 @@ const boardsEditTaskAddCommentSubmit = () => {
 };
 
 const boardsArchiveBoard = () => {
-  if (!confirm("Na pewno chcesz usunąć tablicę?")) {
-    return;
-  }
-
   ajaxPost(baseUrl + "/boards/archiveBoard", { id: currentBoard }, (result) => {
     boardsRefreshBoardsGrid();
     boardsGotoHome();
